@@ -39,7 +39,7 @@ const version = require('../package.json').version
 program.version(version)
 
 const cmdConfig = program.parse(process.argv)
-console.log(cmdConfig.port)
+// console.log(cmdConfig)
 
 let Server = require('../main.js')
-new Server(cmdConfig).start()
+new Server({ ...cmdConfig, ...program.opts() }).start()
