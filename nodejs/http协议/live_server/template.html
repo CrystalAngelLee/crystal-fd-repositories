@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      list-style: none;
+    }
+  </style>
+</head>
+<body>
+  <h3>IndexOf <%=title%></h3>
+  <ul>
+    <%if(parent) {%>
+      <li><a href="<%=parentpath%>">上一层</a></li>
+    <%}%>
+    
+    <%for(let i = 0; i < arr.length; i++) {%>
+      <li><a href="<%=arr[i].path%>"><%=arr[i].dirs%></a></li>
+    <%}%>
+  </ul>
+</body>
+</html>
