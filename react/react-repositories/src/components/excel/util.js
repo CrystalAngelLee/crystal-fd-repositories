@@ -47,9 +47,9 @@ export const exportExcel = (headers, dataSource, fileName) => {
   }
 }
 
-export const parseExcel = (file) =>
-  new Promise((resolve) => {
-    const reader = new FileReader()
+export const parseExcel = (file) => {
+  const reader = new FileReader()
+  return new Promise((resolve) => {
     const rABS =
       typeof FileReader !== 'undefined' &&
       (FileReader.prototype || {}).readAsBinaryString
@@ -74,3 +74,4 @@ export const parseExcel = (file) =>
       })
     }
   }).catch((err) => console.error(err))
+}
