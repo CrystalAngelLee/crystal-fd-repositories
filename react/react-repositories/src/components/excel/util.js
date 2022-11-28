@@ -29,7 +29,7 @@ export const exportExcel = (headers, dataSource, fileName) => {
     if (colsWidth && colsWidth.length > 0) {
       ws['!cols'] = dataIndex.map((_, idx) => ({ wch: colsWidth[idx] || 20 }))
     }
-    if (merges && colsWidth.length > 0) {
+    if (merges && merges.length > 0) {
       /* 合并单元格 */
       // s 意为 start ，即开始的单元格
       // r 是 row ，表示行号，从 0 计起
