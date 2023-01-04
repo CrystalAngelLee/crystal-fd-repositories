@@ -1,0 +1,46 @@
+.account {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  &-container {
+    height: 100%;
+  }
+  &-navbar {
+    display: flex;
+    height: 46px;
+    border-top: 1px solid #c4c1c1bf;
+    &-item {
+      flex: 1 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:not(:last-child) {
+        border-right: 1px solid #c4c1c1bf;
+      }
+    }
+  }
+  &-configs {
+    &-line {
+      color: #333;
+      display: flex;
+      &:nth-child(odd) {
+        background-color: aliceblue;
+      }
+      &:nth-child(even) {
+        background-color: rgb(239, 237, 237);
+      }
+
+      &-title {
+        width: 100px;
+        flex-shrink: 0;
+      }
+      &-child {
+        width: 100%;
+        display: flex;
+        > * {
+          flex: 1 1;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.muzimini-mine {
+  &-header {
+    background-color: #fdf89a;
+    padding-bottom: 0.8rem;
+    margin-bottom: 0.5rem;
+    &-userInfo {
+      text-align: center;
+      .at-avatar {
+        margin: 0 auto;
+      }
+      .at-button {
+        width: 200px;
+        margin-top: 15px;
+        color: #F49876;
+      }
+    }
+    &-nickName {
+      font-size: 0.7rem;
+      line-height: 1.5rem;
+    }
+    &.nopermission {
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

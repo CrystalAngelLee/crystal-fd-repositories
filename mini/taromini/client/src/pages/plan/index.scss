@@ -1,0 +1,105 @@
+.muzimini-finaceplan {
+  height: 100vh;
+  position: relative;
+
+  &-header {
+    padding: 0 20px;
+    background-color: #fdf89a;
+    box-sizing: border-box;
+    &-icon {
+      font-size: 1.2rem;
+    }
+    &-row {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    &-time {
+      padding: 10px 20px;
+      .year {
+        font-size: 0.5rem;
+        color: #868686;
+        text-align: center;
+      }
+      .month {
+        font-size: 1.2rem;
+        color: #f49876;
+      }
+    }
+    &-income {
+      flex-grow: 1;
+      padding-left: 20px;
+      display: flex;
+      align-items: center;
+      color: #ba5600;
+      .income {
+        padding-left: 20px;
+        color: #a83425;
+      }
+    }
+    &__opt {
+      font-size: 34rpx;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      color: #f49876;
+      &:not(:last-child) {
+        margin-right: 20rpx;
+      }
+    }
+  }
+  &-content {
+    &-line {
+      padding-left: 32rpx;
+      transition: background-color 0.3s;
+      &__wrap {
+        padding: 24rpx 32rpx 24rpx 0;
+        display: flex;
+        color: #333;
+        font-size: 32rpx;
+        position: relative;
+        border-bottom: 0.5px solid #d6e4ef;
+        .at-checkbox__icon-cnt {
+          &.selected {
+            color: #fff;
+            border: 0;
+            background-color: #6190e8;
+          }
+        }
+      }
+      &__title {
+        flex: 1;
+        margin-right: 0.8rem;
+      }
+      &__value {
+        text-align: right;
+        font-size: 34rpx;
+        color: #f49876;
+      }
+    }
+    &.disable {
+      .muzimini-finaceplan-content-line__value {
+        color: #929090;
+      }
+    }
+  }
+  &-nodata {
+    width: 100%;
+    height: 80vh;
+    justify-content: center;
+  }
+  &-fabicon {
+    position: fixed;
+    right: 0.5rem;
+    bottom: 1.5rem;
+  }
+  &-layout-button {
+    margin: 0.5rem 0;
+    display: flex;
+    &.at-button {
+      float: right;
+      overflow: hidden;
+    }
+  }
+}

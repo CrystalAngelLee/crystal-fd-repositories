@@ -1,0 +1,19 @@
+.muzimini-bookmanage {
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  overflow: hidden;
+  &-header {
+    padding: 0.8rem 1.2rem;
+  }
+  &-content {
+    height: 100%;
+    overflow-y: auto;
+    margin-bottom: 10rpx;
+  }
+  &-footer {
+    flex-shrink: 1;
+    display: flex;
+  }
+}
