@@ -1,0 +1,72 @@
+@import '../../style/variables.scss';
+
+.muzimini-template {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: $at-input-font-size;
+  &-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    background-color: #fdf89a;
+    align-items: center;
+    padding: 10rpx 30rpx;
+  }
+  &-list-form {
+    margin-bottom: 0.5rem;
+    &-opt {
+      text-align: right;
+      margin-right: 10px;
+    }
+    &-rules {
+      margin-left: 0.68267rem;
+      padding-left: 0;
+      border-bottom: 1px solid #d6e4ef;
+    }
+    .muzimini-template-list-form {
+      margin-left: 0.5rem;
+    }
+  }
+  &-card {
+    margin: 0.3rem 0.5rem;
+    background-color: #fff;
+    padding: 0.5rem;
+    border: 1px solid #d6e4ef;
+    border-radius: 0.5rem;
+    box-shadow: 2px 2px 5px #d6e4ef;
+    &-line {
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      &-label {
+        flex-grow: 0;
+      }
+    }
+  }
+  &-cards {
+    background-color: #dddbdbce;
+    .at-button {
+      background: #fff;
+      border: 1px dashed #dbe8b0;
+      margin: 0 0.5rem;
+    }
+  }
+  &-container {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  &-income {
+    padding: 0.5rem 1.5rem;
+    &-num {
+      padding-left: 0.3rem;
+    }
+  }
+  &-footer {
+    flex-shrink: 0;
+    .at-button {
+      border-radius: 0;
+    }
+  }
+}

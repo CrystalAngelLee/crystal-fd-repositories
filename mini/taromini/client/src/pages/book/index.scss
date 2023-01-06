@@ -1,0 +1,80 @@
+.muzimini-book {
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  overflow: hidden;
+  &-header {
+    padding: 0.8rem 1.2rem;
+  }
+  &-content {
+    height: 100%;
+    overflow-y: auto;
+    margin-bottom: 10rpx;
+    &__date {
+      background-color: #fdf89a;
+      border-radius: 0.5rem;
+      font-size: 0.7rem;
+      padding: 5rpx 1rem;
+      margin-left: 0.5rem;
+      box-sizing: content-box;
+    }
+    &__icon {
+      display: flex;
+      flex-wrap: wrap;
+      &_item {
+        width: 2rem;
+        margin-bottom: 10rpx;
+        .icon {
+          background-color: #999;
+          border-radius: 50%;
+          width: 1.5rem;
+          height: 1.5rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .name {
+          font-size: 0.5rem;
+        }
+        &.active .icon {
+          box-shadow: 2rpx 2rpx 10rpx red;
+        }
+      }
+    }
+  }
+  &-box {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0.5rem 0;
+    border-radius: 0.5rem;
+    box-shadow: 2rpx 2rpx 10rpx #ddd;
+    &__title {
+      line-height: 1.5rem;
+      display: flex;
+    }
+    &__content {
+      .at-input {
+        margin: 0;
+      }
+    }
+    &__type {
+      padding: 15rpx 0;
+      .circle {
+        color: #fff;
+        background: #868686;
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        &:first-child {
+          margin-right: 10px;
+        }
+        &.active {
+          box-shadow: 2rpx 2rpx 10rpx rgb(100, 147, 222);
+        }
+      }
+    }
+  }
+}

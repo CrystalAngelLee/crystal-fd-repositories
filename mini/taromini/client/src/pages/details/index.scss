@@ -1,0 +1,30 @@
+.muzimini-finacedetails {
+  &-header {
+    display: flex;
+    padding: 0 20px;
+    background-color: #fdf89a;
+    box-sizing: border-box;
+    justify-content: space-between;
+    &-time {
+      padding: 10px 20px;
+      .year {
+        font-size: 0.5rem;
+        color: #868686;
+        text-align: center;
+      }
+      .month {
+        font-size: 1.2rem;
+        color: #f49876;
+      }
+    }
+    &-item {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      &__title {
+        font-size: 0.5rem;
+        color: #868686;
+      }
+    }
+  }
+}
