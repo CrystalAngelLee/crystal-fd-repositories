@@ -1,0 +1,35 @@
+{
+  "name": "next-react-koa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://CrystalAngelLee@github.com/CrystalAngelLee/next-react-koa.git",
+  "author": "CrystalAngelLee <crystaljiaxuan@163.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "@zeit/next-css": "^1.0.1",
+    "antd": "^4.6.1",
+    "axios": "^0.20.0",
+    "babel-plugin-import": "^1.13.0",
+    "babel-plugin-styled-components": "^1.11.1",
+    "ioredis": "^4.17.3",
+    "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-router": "^9.4.0",
+    "koa-session": "^6.0.0",
+    "moment": "^2.27.0",
+    "next": "^9.5.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.1.1"
+  }
+}

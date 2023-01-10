@@ -1,4 +1,4 @@
-# Crystal 手写 JavaScript
+# 手写 JavaScript
 
 ## Promise
 

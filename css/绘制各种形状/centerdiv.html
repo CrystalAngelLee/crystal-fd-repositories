@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>用css2和css3分别实现垂直居中和水平居中</title>
+    <style>
+      .parent_0 {
+        text-align: center;
+        background-color: #ddd;
+      }
+      .parent_1 {
+        height: 200px;
+        margin: 10px;
+        background-color: #ddd;
+        box-sizing: border-box;
+
+        position: relative;
+      }
+      .parent_1 .item {
+        width: 100px;
+        height: 100px;
+        background-color: #dbb3b3;
+
+        text-align: center;
+        line-height: 100px;
+
+        /* CSS2 */
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+      }
+
+      .parent_2 {
+        height: 200px;
+        width: 100%;
+        background-color: #ddd;
+        box-sizing: border-box;
+
+        display: table;
+        text-align: center;
+      }
+      .parent_2 .item {
+        width: 100px;
+        height: 100px;
+        background-color: #dbb3b3;
+
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      .parent_3 {
+        height: 200px;
+        margin: 10px;
+        background-color: #ddd;
+        box-sizing: border-box;
+
+        position: relative;
+      }
+      .parent_3 .item {
+        width: 100px;
+        height: 100px;
+        background-color: #dbb3b3;
+
+        text-align: center;
+        line-height: 100px;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -50px;
+      }
+
+      .parent_4_box {
+        height: 200px;
+        background-color: #ddd;
+      }
+      #floater {
+        float: left;
+        height: 50%;
+        margin-bottom: -50px;
+      }
+      .parent_4 {
+        clear: both;
+        width: 100px;
+        height: 100px;
+        background-color: #dbb3b3;
+
+        text-align: center;
+        line-height: 100px;
+
+        position: relative;
+        margin: 0 auto;
+      }
+
+      .parent_5 {
+        height: 200px;
+        margin: 10px;
+        background-color: #ddd;
+        box-sizing: border-box;
+
+        position: relative;
+      }
+      .parent_5 .item {
+        width: 100px;
+        height: 100px;
+        background-color: #dbb3b3;
+
+        text-align: center;
+        line-height: 100px;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        /* CSS3 */
+        transform: translate(-50%, -50%);
+      }
+
+      .parent_6 {
+        height: 200px;
+        background-color: #ddd;
+        box-sizing: border-box;
+
+        /* CSS3 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .parent_6 .item {
+        width: 100px;
+        height: 100px;
+        background-color: #dbb3b3;
+
+        text-align: center;
+        line-height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 文字居中 -->
+    <div class="parent_0">单行文字居中</div>
+
+    <!-- DIV居中 -->
+    <div class="parent_1">
+      <div class="item">div居中</div>
+    </div>
+
+    <div class="parent_2">
+      <div class="item">div居中</div>
+    </div>
+
+    <div class="parent_3">
+      <div class="item">div居中</div>
+    </div>
+
+    <div class="parent_4_box">
+      <div id="floater"></div>
+      <div class="parent_4">
+        <div class="item">div居中</div>
+      </div>
+    </div>
+
+    <div class="parent_5">
+      <div class="item">div居中</div>
+    </div>
+
+    <div class="parent_6">
+      <div class="item">div居中</div>
+    </div>
+
+    <div class="parent">
+      <div class="child">world</div>
+    </div>
+  </body>
+</html>

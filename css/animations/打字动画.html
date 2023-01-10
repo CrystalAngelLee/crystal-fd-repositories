@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>打字动画</title>
+    <style>
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+      }
+      @keyframes caret {
+        /* 50% { border-color: transparent } */
+        50% {
+          border-color: currentColor;
+        }
+      }
+      h1 {
+        font: 200% monospace; /* 文字要设置成为等宽字体 */
+        width: 15ch; /* 文本的宽度 */
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 0.05em solid transparent;
+        animation: typing 6s steps(15), caret 1s steps(1) infinite;
+      }
+    </style>
+  </head>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/core.js"></script>
+  <script>
+    $$(h1).forEach(function (h1) {
+      console.log('AAA')
+      var len = h1.textContent.length,
+        s = h1.style
+      s.width = len + 'ch'
+      s.animationTimingFunction = 'steps(' + len + '),steps(1)'
+    })
+  </script>
+  <body>
+    <h1>CSS is awesome!</h1>
+  </body>
+</html>

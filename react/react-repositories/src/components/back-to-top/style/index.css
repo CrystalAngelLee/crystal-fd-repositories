@@ -1,0 +1,10 @@
+.cr-back-top {
+  height: 100%;
+  position: relative;
+}
+.cr-back-top-title {
+  position: absolute;
+  right: 2%;
+  bottom: 5%;
+  z-index: 100;
+}

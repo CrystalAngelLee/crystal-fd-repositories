@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/index.css">
+  <title>九宫格练习</title>
+</head>
+<body>
+  <div id='Gallary'></div>
+</body>
+<script src='js/jquery.min.js'></script>
+<script type="text/javascript">
+  // 模拟后台传来的数据
+  var picArr = [
+    'images/001.jpg',
+    'images/002.jpg',
+    'images/003.jpg',
+    'images/004.jpg',
+    'images/005.jpg',
+    'images/006.jpg',
+    'images/007.jpg',
+    'images/008.jpg',
+    'images/009.jpg',
+    'images/010.jpg',
+    'images/011.jpg',
+  ];
+  // 计算要显示的宽高
+  var screenHalf = window.screen.availWidth * 0.48;
+  var screenThird = window.screen.availWidth * 0.32;
+
+  var html = '';
+  var imgArr = []; // 
+  for(let i=0; i<9; i++) {
+    imgArr[i] = new Image();
+    imgArr[i].src = picArr[i];
+    imgArr[i].onload = function() {
+      var w = imgArr[i].width;
+      var h = imgArr[i].height;
+      var picStyle = w>h ? 'height:100%;margin-left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);' 
+      : 'width:100%;margin-top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);';
+      console.log('imgArr[i]',imgArr[i])
+      console.log('imgArr[i]',imgArr[i].width)
+      console.log('imgArr[i]',imgArr[i].height)
+      if (picArr.length==1) {//一张照片
+        html += " <div class='picture-singel'><a href='#'><img src=' " + picArr[i] + " '></a></div> ";
+      } else if (picArr.length==2 || picArr.length==4) {//两张和四张
+        html += " <div class='picture' style='width: " + screenHalf + "px; height: " + screenHalf + "px;'><a href='#'><img src=' " + picArr[i] + " ' style='width: 100%'></a></div> ";
+      } else {//三到九张，除去4张
+        html += " <div class='picture' style='width: " + screenThird + "px; height: " + screenThird + "px;'><a href='#'><img src=' " + picArr[i] + " ' style="+picStyle+"></a></div> ";
+      }
+      // html += "<div style='clear: both;'></div>"
+      $('#Gallary').html(html);
+    }
+    
+  }
+
+  /* if (picArr.length>9) {//九张以上
+    var layer = '';
+    var num = picArr.length * 1 - 9;
+    layer += " <div class='layer'><span>"+num+"</span></div> "
+    $('#Gallary :last-child').html(layer);
+  } */
+
+</script>
+</html>

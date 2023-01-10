@@ -1,0 +1,67 @@
+.scrollbar {
+  &.outerbar {
+    height: 7px;
+    width: 100%;
+  }
+  &-inner {
+    height: 7px;
+    border-radius: 7px;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.5s ease 0s;
+  }
+  &-container {
+    height: 100%;
+  }
+}
+.is-show {
+  opacity: 1;
+  transition: opacity 0s ease 0s;
+}
+
+@bar: scroll-bar;
+
+.@{bar} {
+  &-iframe {
+    height: 100%;
+    position: relative;
+  }
+  &-slider {
+    position: fixed;
+    &-outer {
+      height: 7px;
+      width: 100%;
+      background-color: #ddd;
+      border-radius: 5px;
+    }
+    &-inner {
+      height: 7px;
+      border-radius: 7px;
+      background-color: rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+    }
+  }
+}
+
+@nativeBar: native-scroll-bar;
+
+.@{nativeBar} {
+  &-outter,
+  &-inner {
+    height: 12px;
+  }
+  &-outter {
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 12px;
+      background-color: #fff;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background: #eee;
+      cursor: pointer;
+    }
+  }
+}

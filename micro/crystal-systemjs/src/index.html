@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Systemjs</title>
+
+    <!-- 引入公共框架 -->
+    <script type="systemjs-importmap">
+        {
+            "imports": {
+                "react": "https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js",
+                "react-dom": "https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js",
+                "react-router-dom": "https://cdn.jsdelivr.net/npm/react-router-dom@5.2.0/umd/react-router-dom.min.js"
+            }
+        }
+    </script>
+
+    <!-- 引入systemjs -->
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.0/dist/system.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- 动态引入模块 -->
+    <script>
+        System.import("./index.js")
+    </script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+ul, ol, li {
+  list-style-type:none;
+  vertical-align:0;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  width: 677px;
+  margin: 0 auto;
+}
+
+#app .imgList li {
+  position:relative;
+  float:left;
+  color:#fff;
+}
+
+/************************* 图片部分公共样式 *************************/
+#app img {
+  position: relative;
+  cursor: pointer;
+}
+
+#app img.breadth {
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#app img.high {
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/************************* 展示图片部分 *************************/
+#app .showImgBox {
+  width: 100%;
+  height:394px;
+  position:relative;
+  overflow:hidden;
+}
+
+#app .showImgBox .imgList {
+  height:394px;
+  position:absolute; 
+  left:0;
+}
+
+#app .showImgBox .imgList li {
+  width: 677px;
+  height: 394px;
+}
+
+#app .showImgBox .imgList li a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+/************************* 图片列表展示部分 *************************/
+#app .imageListContainer {
+  position: relative;
+}
+
+#app .imageListContainer-scroll {
+  width: 100%;
+  height: 120px;
+  padding-top: 15px;
+  overflow: hidden;
+  position: relative;
+}
+
+#app .imgListBox, #app .imgListBox .imgList {
+  height: 100%;
+}
+
+#app .imgListBox {
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+}
+
+#app .imgListBox .imgList {
+  position: absolute;
+}
+
+#app .imgListBox::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+#app .imgListBox .imgList li {
+  cursor:pointer;
+  position:relative; 
+  height: 100%;
+  opacity: 1;
+}
+
+/* >= 5 张图片展示 */
+#app .imageListContainer-scroll.lessfive .imgList li:not(:last-child) {
+  padding-right: 5px;
+}
+
+/* <5 张图片展示 */
+#app .imageListContainer-scroll.morefive {
+  width: calc(100% - 40px);
+  margin: 0 auto;
+}
+
+#app .imageListContainer-scroll.morefive .imgList li {
+  padding-right: 5px;
+}
+
+#app .imgListBox .imgList li a {
+  display: block;
+  background-color:#cfa972;
+  opacity: 0.6;
+  height: 100%;
+  overflow: hidden;
+}
+
+#app .imgListBox img {
+  background-color:#cfa972;
+  opacity: 0.6;
+}
+
+#app .imgListBox .imgList li:hover a, 
+  #app .imgListBox .imgList li:hover img,
+  #app .imgListBox .imgList li.active a,
+  #app .imgListBox .imgList li.active img {
+  opacity: 1;
+}
+
+/************************* 左右图标展示 *************************/
+#app .prev, #app .next {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  top: 64px;
+  cursor: pointer;
+  display: none;
+}
+
+#app .prev {
+  border-width: 10px 15px 10px 0;
+  border-color: transparent #ddd transparent transparent;
+  left: 0px;
+}
+
+#app .next {
+  border-width: 10px 0 10px 15px;
+  border-color: transparent  transparent  transparent #ddd;
+  right: 0;
+}
+
+/************************* 图片预览 *************************/
+.imagePrevewLayout {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 202020;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.mask-layer-black {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: .75;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.mask-layer-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.mask-layer-imgbox .layer-img-box img {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  -moz-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  -o-transform: translate(-50%, -50%) scale(1);
+}

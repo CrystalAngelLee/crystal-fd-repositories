@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文字超出...显示</title>
+  <style>
+    .text-ellipse {
+      max-width: 100px;
+
+      display: inline-block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    /* 如果出现部分手机会展示下一行内容，添加line-height处理 */
+    .paragraph-ellipse {
+      max-width: 100px;
+
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      -ms-text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <!-- 内容之显示一行，超出部分...显示 -->
+  <span class="text-ellipse">There maybe will have so many worlds</span>
+
+  <!-- 多行，超出部分...显示 -->
+  <p class="paragraph-ellipse">There maybe will have so many worlds, There maybe will have so many worlds</p>
+</body>
+</html>
