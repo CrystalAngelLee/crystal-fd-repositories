@@ -1,20 +1,16 @@
 import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
-import AccountConfigs from './components/AccountConfigs'
+import { Link, Outlet, redirect } from 'react-router-dom'
 import './index.scss'
+import { useEffect } from 'react'
 
 const prefixCls = 'account'
 
 const Account = () => {
+  useEffect(() => {
+    redirect('/mine')
+  }, [])
   return (
     <div className={prefixCls}>
-      {/* <div>展示当前账本配置信息</div>
-      <div>
-        <AccountConfigs />
-      </div>
-      <div>展示当前月份资产配置信息</div>
-      <div>当前消费统计</div>
-      <div>展示当前资产统计</div> */}
       <div className={`${prefixCls}-container`}>
         <Outlet />
       </div>

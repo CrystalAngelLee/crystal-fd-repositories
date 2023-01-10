@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom'
-
 import App from '../pages/account'
 import Statistics from '../pages/account/pages/statistics'
 import Mine from '../pages/account/pages/mine'
