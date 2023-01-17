@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>redux 实现部分测试 demo</title>
+</head>
+<body>
+    <button id="increment">+1</button>
+    <span id="box">0</span>
+    <button id="decrement">-1</button>
+
+    <script src="../redux/index.js"></script>
+    <script src="./middlewares/logger.js"></script>
+    <script src="./middlewares/thunk.js"></script>
+
+    <script>
+        function counterReducer(state, action) {
+            switch (action.type) {
+                case "increment":
+                    return state + 1;
+                case "decrement":
+                    return state - 1;
+                default:
+                    return state;
+            }
+        }
+
+        var rootReducer = combineReducers({counter: counterReducer})
+
+        function enhancer (createStore) {
+            return function (reducer, preloadedState) {
+                var store = createStore(reducer, preloadedState);
+                var dispatch = store.dispatch;
+                // 对 dispatch 的增强：模拟实现 redux-thunk
+                function _dispatch (action) {
+                    if (typeof action === 'function') {
+                        return action(dispatch)
+                    }
+                    dispatch(action);
+                }
+                return {
+                    ...store,
+                    dispatch: _dispatch
+                }
+            }
+        }
+
+        // const store = createStore(reducer, 0, enhancer);
+        // const store = createStore(reducer, 0, applyMiddleware(logger, thunk));
+        const store = createStore(rootReducer, {counter: 0}, applyMiddleware(logger, thunk));
+        
+        // 获取最新状态
+        store.subscribe(function () {
+            // document.getElementById("box").innerHTML = store.getState();
+            document.getElementById("box").innerHTML = store.getState().counter;
+        });
+
+        var actions = bindActionCreators({increment, decrement}, store.dispatch);
+
+        function increment () {
+            return {type: "increment"}
+        }
+
+        function decrement () {
+            return {type: "decrement"};
+        }
+      
+        document.getElementById("increment").onclick = function () {
+            // logger -> thunk -> reducer
+            // store.dispatch({ type: "increment" });
+            actions.increment()
+        };
+
+        document.getElementById("decrement").onclick = function () {
+            // store.dispatch({ type: "decrement" });
+            actions.decrement()
+        };
+    </script>
+</body>
+</html>

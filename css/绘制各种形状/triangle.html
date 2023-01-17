@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>三角形</title>
+    <style>
+      /* 布局使用 */
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /* 布局使用 */
+      .triangle-up {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 25px 40px 25px;
+        /* 通过改变边框颜色，可以改变三角形的方向 */
+        border-color: transparent transparent #ddd transparent;
+      }
+      .triangle-down {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 40px 25px 0 25px;
+        border-color: #ddd transparent transparent transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 正三角形 -->
+    <div class="triangle-up"></div>
+    <div style="height: 10px"></div>
+    <!-- 倒三角形 -->
+    <div class="triangle-down"></div>
+  </body>
+</html>

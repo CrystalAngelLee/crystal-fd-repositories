@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轮播图&放大JQUERY实现</title>
+  <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+  <div id="app">
+    <div id='showImgBox' class="showImgBox">
+      <ul class="imgList"></ul>
+    </div>
+    <div class="imageListContainer">
+      <i id="prevBtn" class="prev btn"></i>
+      <i id="nextBtn" class="next btn"></i>
+      <div id="imgListBox" class="imageListContainer-scroll">
+        <div class="imgListBox">
+          <ul class="imgList"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+  <!-- 图片预览 -->
+  <script src="/js/preview.js"></script>
+  <!-- 图片轮播 -->
+  <script src="./js/carousel.js"></script>
+</body>
+</html>

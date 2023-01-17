@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片居中div显示</title>
+  <style>
+    .center_box_container {
+      display: flex;
+    }
+    .center_box_container>div {
+      margin: 3px;
+    }
+    .center_box {
+      width: 300px;
+      height: 400px;
+      overflow: hidden;
+    }
+    .center_img_1 {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .center_img_2 {
+      background: url('./statics/img-1.jpg') no-repeat center;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .center_img_3 {
+      background: url('./statics/img-1.jpg') no-repeat center;
+      background-size: contain;
+      width: 100%;
+      height: 100%;
+    }
+
+    .center_img_4 {
+      position: relative;
+    }
+    .center_img_4.breadth {
+      height: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .center_img_4.high {
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
+</head>
+<body>
+  <!-- 方式一 -->
+  <div class="center_box">
+    <img class="center_img_1" alt="" src="./statics/img-1.jpg"/>
+  </div>
+
+  <div style="padding: 10px;"></div>
+
+  <!-- 方式二 -->
+  <div class="center_box">
+    <div class="center_img_2"></div>
+  </div>
+
+  <div style="padding: 10px;"></div>
+
+  <!-- 方式三 -->
+  <div class="center_box">
+    <div class="center_img_3"></div>
+  </div>
+
+  <div style="padding: 10px;"></div>
+
+  <!-- 方式四 -->
+  <div class="center_box_container"></div>
+</body>
+<script>
+  // 方式四
+  getImage = (domCls = '', width = 0, height = 0) => {
+    if (!domCls) return;
+
+    // 定义一个图片数组
+    const imageList = [
+      { url: './statics/img-1.jpg' },
+      { url: './statics/img-2.jpg' },
+      { url: './statics/img-3.jpg' },
+    ]
+    
+    const doms = document.getElementsByClassName(domCls)
+    let loadingImage = 1;
+    if (doms) {
+      imageList.forEach((item, index) => {
+        if (item.url) {
+          let img = new Image();
+          img.src = item.url;
+          img.onload = function() {
+            let imgStyle = ''
+            let currentCls = ''
+            if (img.width >= img.height) { // 横向图片, 高100%
+              currentCls = 'breadth'
+              // imgStyle = `right: calc((${img.width}px - ${width}px) / 2)`
+            } else {
+              currentCls = 'high'
+            }
+
+            let child = "<img class='center_img_4 "+ currentCls + "' src='" + item.url + "' style='" + imgStyle + "' />"
+            let div = document.createElement('div');
+            div.className = 'center_box'
+            div.innerHTML = child;
+            doms[0].appendChild(div);
+
+            loadingImage++;
+          };
+          
+          img.onerror = function() {
+            loadingImage++;
+          }
+        }
+      })
+
+      if (loadingImage === imageList.length) {
+        let div_loading = document.createElement('div');
+        div_loading.id = 'loading'
+        div_loading.innerHTML = `<iframe src='./loading.html' scrolling='no' frameborder='0'></iframe>`
+        doms[0].appendChild(div_loading);
+      } else {
+        let loaingDom = document.getElementById('loading')
+        if (loaingDom) doms[0].removeChild(loaingDom)
+      }
+    } else {
+      alert('没有找到指定元素！')
+    }
+  }
+  window.onload = getImage('center_box_container', 300, 400)
+</script>
+</html>

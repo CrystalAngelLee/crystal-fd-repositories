@@ -1,0 +1,29 @@
+#Gallary {
+  overflow: hidden;
+}
+.picture {
+  float: left;
+  padding: 2px;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+}
+.picture-singel {
+  max-width:50%
+}
+.picture-singel img {
+  width: 100%;
+}
+/* 遮罩 */
+.layer {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  position: absolute;
+  top: 0;
+  z-index: 99999999;
+  opacity: 0.3;
+}
+.layer span {
+  color: #fff;
+}

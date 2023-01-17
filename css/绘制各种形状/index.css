@@ -1,0 +1,293 @@
+/* 三角形样式 */
+.triangle {
+  width: 0;
+  height: 0;
+  border: 50px solid pink;
+  /* 通过改变边框颜色，可以改变三角形的方向 */
+  border-color: pink transparent transparent transparent;
+}
+/* 梯形样式 */
+.trapzoid {
+  width: 40px;
+  height: 100px;
+  border: 50px solid pink;
+  border-color: transparent transparent pink transparent;
+}
+/* 球体样式 */
+.sphere {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 70px 70px, #5cabff, #000);
+}
+/* 椭圆样式 */
+.ellipse {
+  width: 200px;
+  height: 100px;
+  border-radius: 50%;
+  background: pink;
+}
+/* 半圆样式 */
+.semicicle {
+  width: 50px;
+  height: 100px;
+  /*  "/"前四个值表示圆角的水平半径，后四个值表示圆角的垂直半径*/
+  border-radius: 200% 0 0 200% / 100% 0 0 100%;
+
+  /* 效果和用%一样 */
+  /* border-radius: 50px 0 0 50px; */
+  background: blue;
+}
+/* 菱形样式 */
+.rhombus {
+  width: 200px;
+  height: 200px;
+  transform: rotateZ(45deg) skew(30deg, 30deg);
+  background: blue;
+}
+/* 心形样式：心形是由两个圆形和一个矩形进行组合得到的 */
+.heart {
+  width: 100px;
+  height: 100px;
+  transform: rotateZ(45deg);
+  background: red;
+}
+
+.heart::after,
+.heart::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: block;
+  background: red;
+  position: absolute;
+  top: -50%;
+  left: 0;
+}
+
+.heart::before {
+  top: 0;
+  left: -50%;
+}
+/* 扇形样式：扇形是由一个圆形和一个矩形进行组合得到的，用矩形遮住圆形的一部分就形成了扇形 */
+.sector {
+  width: 142px;
+  height: 142px;
+  background: #fff;
+  border-radius: 50%;
+  background-image: linear-gradient(to right, transparent 50%, #655 0);
+}
+
+.sector::before {
+  content: '';
+  display: block;
+  margin-left: 50%;
+  height: 100%;
+  width: 100%;
+  background-color: inherit;
+  transform-origin: left;
+  /*调整角度，改变扇形大小*/
+  transform: rotate(230deg);
+}
+/* 五边形：五边形是由一个三角形和一个梯形进行组合得到的 */
+.pentagonal {
+  width: 100px;
+  position: relative;
+  border-width: 105px 50px 0;
+  border-style: solid;
+  border-color: blue transparent;
+}
+
+.pentagonal:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -185px;
+  left: -50px;
+  border-width: 0px 100px 80px;
+  border-style: solid;
+  border-color: transparent transparent blue;
+}
+/* 六边形：六边形是由两个三角形和一个矩形进行组合得到的 */
+.hexagon {
+  width: 200px;
+  height: 100px;
+  background-color: blue;
+  position: relative;
+}
+
+.hexagon:before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 60px solid blue;
+}
+
+.hexagon:after {
+  content: "";
+  left: 0;
+  width: 0;
+  height: 0;
+  bottom: -60px;
+  position: absolute;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-top: 60px solid blue;
+}
+/* 长方体：长方体是由六个矩形进行组合得到的 */
+.cuboid {
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+  transform: rotateX(-30deg) rotateY(-80deg);
+}
+
+.cuboid div {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  opacity: 0.8;
+  transition: .4s;
+}
+
+.cuboid .front {
+  transform: rotateY(0deg) translateZ(100px);
+  background: #a3daff;
+}
+
+.cuboid .back {
+  transform: translateZ(-100px) rotateY(180deg);
+  background: #a3daff;
+}
+
+.cuboid .left {
+  transform: rotateY(-90deg) translateZ(100px);
+  background: #1ec0ff;
+}
+
+.cuboid .right {
+  transform: rotateY(90deg) translateZ(100px);
+  background: #1ec0ff;
+}
+
+.cuboid .top {
+  transform: rotateX(90deg) translateZ(100px);
+  background: #0080ff;
+}
+
+.cuboid .bottom {
+  transform: rotateX(-90deg) translateZ(100px);
+  background: #0080ff;
+}
+/* 圆柱体:圆柱体是由一个椭圆和一个圆角矩形进行组合得到的 */
+.cylinder {
+  position: relative;
+  transform: rotateX(70deg);
+}
+
+.ellipse {
+  width: 100px;
+  height: 100px; 
+  background: deepskyblue;
+  border-radius: 50px;
+}
+
+.rectangle {
+  width: 100px;
+  height: 400px;
+  position: absolute;
+  opacity: 0.6;
+  background: deepskyblue;
+  top: 0;
+  left: 0; 
+  border-radius: 50px;
+  z-index: -1;
+}
+
+/* 如果使用了渐变色，看上去会更像一些____
+background-image: linear-gradient(to right, rgba(255, 255, 255, 0.2) 0, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.2) 100%); */
+
+/* 棱锥:棱锥是由四个三角形和一个矩形进行组合得到的 */
+.pyramid {
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+  transform: rotateX(-30deg) rotateY(-80deg);
+} 
+.pyramid div {
+  position: absolute;
+  top: -100px;
+  width: 0px;
+  height: 0px;
+  border: 100px solid transparent;
+  border-bottom-width: 200px;
+  opacity: 0.8;
+}
+
+.pyramid .front {
+  transform: translateZ(100px) rotateX(30deg);
+  border-bottom-color: #a3daff;
+  transform-origin: 0 100%;
+}
+
+.pyramid .back {
+  transform: translateZ(-100px) rotateX(-30deg);
+  border-bottom-color: #1ec0ff;
+  transform-origin: 0 100%;
+}
+
+.pyramid .left {
+  transform: translateX(-100px) rotateZ(30deg) rotateY(90deg);
+  border-bottom-color: #0080ff;
+  transform-origin: 50% 100%;
+}
+
+.pyramid .right {
+  transform: translateX(100px) rotateZ(-30deg) rotateY(90deg);
+  border-bottom-color: #03a6ff;
+  transform-origin: 50% 100%;
+}
+
+.pyramid .bottom {
+  transform: translateX(-100px) rotateZ(90deg) rotateY(90deg);
+  background: cyan;
+  width: 200px;
+  height: 200px;
+  border: 0;
+  top: 0;
+  transform-origin: 50% 100%;
+}
+
+/* 最酷的拉格~~~~ */
+.MagicCircle {
+  position: relative;
+  width: 512px;
+  height: 512px;
+  margin: 100px auto;
+}
+.circle1 {
+  width: 500px;
+  height: 500px;
+  background: transparent;
+  border-radius: 50%;
+  border: 6px solid #B71D3F;
+  position: absolute;
+}
+.circle2 {
+  width: 484px;
+  height: 484px;
+  background: transparent;
+  border-radius: 50%;
+  border: 2px solid #B71D3F;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  animation: flicker1 .5s ease-out 4s infinite alternate;
+}

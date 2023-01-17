@@ -1,0 +1,8 @@
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+}
+.header-left {
+  display: flex;
+}

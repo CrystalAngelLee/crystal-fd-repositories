@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <style>
+      body {
+        background: #000;
+      }
+
+      @keyframes flicker1 {
+        from {
+          box-shadow: 0 0 0 0 red;
+        }
+
+        to {
+          box-shadow: 0 0 90px 5px red;
+        }
+      }
+
+      @keyframes flicker2 {
+        from {
+          box-shadow: 0 0 0 0 red;
+        }
+
+        to {
+          box-shadow: 0 0 2px 2px red;
+        }
+      }
+
+      .MagicCircle {
+        position: relative;
+        width: 512px;
+        height: 512px;
+        margin: 100px auto;
+      }
+
+      /* 从外数第一个圈 */
+      .circle1 {
+        width: 500px;
+        height: 500px;
+        background: transparent;
+        border-radius: 50%;
+        border: 6px solid #b71d3f;
+        position: absolute;
+      }
+
+      /* 从外数第二个圈 */
+      .circle2 {
+        width: 484px;
+        height: 484px;
+        background: transparent;
+        border-radius: 50%;
+        border: 2px solid #b71d3f;
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        animation: flicker1 0.5s ease-out 4s infinite alternate;
+      }
+
+      /* 第二个圈和第三个圈之间的二十四个连线 */
+      .c-line-container {
+        position: absolute;
+        width: 488px;
+        height: 488px;
+        top: 12px;
+        left: 12px;
+      }
+
+      .c-line-container .c-line {
+        position: absolute;
+        width: 2px;
+        height: 15px;
+        background: red;
+      }
+
+      .c-line-rotate1 {
+        top: 0px;
+        left: 244px;
+      }
+
+      .c-line-rotate2 {
+        top: 9px;
+        left: 183px;
+        transform: rotateZ(-15deg);
+      }
+
+      .c-line-rotate3 {
+        top: 31px;
+        left: 126px;
+        transform: rotateZ(-30deg);
+      }
+
+      .c-line-rotate4 {
+        top: 68px;
+        left: 77px;
+        transform: rotateZ(-45deg);
+      }
+
+      .c-line-rotate5 {
+        top: 117px;
+        left: 39px;
+        transform: rotateZ(-60deg);
+      }
+
+      .c-line-rotate6 {
+        top: 175px;
+        left: 16px;
+        transform: rotateZ(-75deg);
+      }
+
+      .c-line-rotate7 {
+        top: 235px;
+        left: 8px;
+        transform: rotateZ(-90deg);
+      }
+
+      .c-line-rotate8 {
+        top: 296px;
+        left: 16px;
+        transform: rotateZ(-105deg);
+      }
+
+      .c-line-rotate9 {
+        top: 354px;
+        left: 38px;
+        transform: rotateZ(-120deg);
+      }
+
+      .c-line-rotate10 {
+        top: 404px;
+        left: 76px;
+        transform: rotateZ(-135deg);
+      }
+
+      .c-line-rotate11 {
+        top: 441px;
+        left: 125px;
+        transform: rotateZ(-150deg);
+      }
+
+      .c-line-rotate12 {
+        top: 465px;
+        left: 182px;
+        transform: rotateZ(-165deg);
+      }
+
+      .c-line-rotate13 {
+        top: 472px;
+        left: 244px;
+        transform: rotateZ(-180deg);
+      }
+
+      .c-line-rotate14 {
+        top: 464px;
+        left: 305px;
+        transform: rotateZ(-195deg);
+      }
+
+      .c-line-rotate15 {
+        top: 441px;
+        left: 362px;
+        transform: rotateZ(-210deg);
+      }
+
+      .c-line-rotate16 {
+        top: 403px;
+        left: 411px;
+        transform: rotateZ(-225deg);
+      }
+
+      .c-line-rotate17 {
+        top: 354px;
+        left: 448px;
+        transform: rotateZ(-240deg);
+      }
+
+      .c-line-rotate18 {
+        top: 297px;
+        left: 471px;
+        transform: rotateZ(-255deg);
+      }
+
+      .c-line-rotate19 {
+        top: 236px;
+        left: 479px;
+
+        transform: rotateZ(-270deg);
+      }
+
+      .c-line-rotate20 {
+        top: 175px;
+        left: 470px;
+
+        transform: rotateZ(-285deg);
+      }
+
+      .c-line-rotate21 {
+        top: 118px;
+        left: 448px;
+        transform: rotateZ(-300deg);
+      }
+
+      .c-line-rotate22 {
+        top: 70px;
+        left: 409px;
+        transform: rotateZ(-315deg);
+      }
+
+      .c-line-rotate23 {
+        top: 33px;
+        left: 361px;
+        transform: rotateZ(-330deg);
+      }
+
+      .c-line-rotate24 {
+        top: 9px;
+        left: 305px;
+        transform: rotateZ(-345deg);
+      }
+
+      /* 从外数第三个圈 */
+      .circle3 {
+        width: 454px;
+        height: 454px;
+        background: transparent;
+        border-radius: 50%;
+        border: 2px solid #b71d3f;
+        position: absolute;
+        top: 27px;
+        left: 27px;
+        animation: flicker1 1s ease-out 3s infinite alternate;
+      }
+
+      /* 第三个圈和第四个圈之间的矩形 */
+      .rectangle-container {
+        width: 512px;
+        height: 512px;
+        position: absolute;
+        top: 0;
+      }
+
+      .rectangle1 {
+        width: 321px;
+        height: 321px;
+        background: transparent;
+        border: 1px solid #b71d3f;
+        position: absolute;
+        top: 94px;
+        left: 95px;
+        transform: rotateZ(45deg);
+        animation: flicker2 0.5s ease-out 1s infinite alternate;
+      }
+
+      .rectangle2 {
+        width: 301px;
+        height: 301px;
+        background: transparent;
+        border: 1px solid #b71d3f;
+        position: absolute;
+        top: 104px;
+        left: 105px;
+        transform: rotateZ(45deg);
+        animation: flicker2 0.5s ease-out 1s infinite alternate;
+      }
+
+      .rectangle3 {
+        width: 321px;
+        height: 321px;
+        background: transparent;
+        border: 1px solid #b71d3f;
+        position: absolute;
+        top: 94px;
+        left: 95px;
+        transform: rotateZ(-15deg);
+        animation: flicker2 0.5s ease-out 1s infinite alternate;
+      }
+
+      .rectangle4 {
+        width: 301px;
+        height: 301px;
+        background: transparent;
+        border: 1px solid #b71d3f;
+        position: absolute;
+        top: 104px;
+        left: 105px;
+        transform: rotateZ(-15deg);
+        animation: flicker2 0.5s ease-out 1s infinite alternate;
+      }
+
+      .rectangle5 {
+        width: 321px;
+        height: 321px;
+        background: transparent;
+        border: 1px solid #b71d3f;
+        position: absolute;
+        top: 94px;
+        left: 95px;
+        transform: rotateZ(15deg);
+        animation: flicker2 0.5s ease-out 1s infinite alternate;
+      }
+
+      .rectangle6 {
+        width: 301px;
+        height: 301px;
+        background: transparent;
+        border: 1px solid #b71d3f;
+        position: absolute;
+        top: 104px;
+        left: 105px;
+        transform: rotateZ(15deg);
+        animation: flicker2 0.5s ease-out 1s infinite alternate;
+      }
+
+      /* 从外数第四个圈 */
+      .circle4 {
+        width: 271px;
+        height: 271px;
+        background: transparent;
+        border-radius: 50%;
+        border: 2px solid #b71d3f;
+        position: absolute;
+        top: 119px;
+        left: 120px;
+        animation: flicker1 0.5s ease-out infinite alternate;
+      }
+
+      /* 右边菱形的组合 */
+      .rhombus-container {
+        position: absolute;
+        left: 23px;
+      }
+
+      .rhombus1 {
+        width: 100px;
+        height: 100px;
+        transform: rotateZ(45deg) skew(37deg, 37deg);
+        border: 3px solid #b71d3f;
+        background: #000;
+        position: absolute;
+        top: 203px;
+        left: 359px;
+      }
+
+      .rhombus2 {
+        width: 79px;
+        height: 79px;
+        border: 3px solid #b71d3f;
+        transform: rotateZ(135deg) skew(35deg, 35deg);
+        background: #000;
+        position: absolute;
+        top: 213px;
+        left: 345px;
+      }
+
+      .rhombus3 {
+        width: 60px;
+        height: 60px;
+        border: 3px solid #b71d3f;
+        transform: rotateZ(-3deg) skew(20deg, 20deg);
+        background: #000;
+        position: absolute;
+        top: 223px;
+        left: 378px;
+      }
+
+      .rhombus4 {
+        width: 60px;
+        height: 60px;
+        border: 3px solid #b71d3f;
+        transform: rotateZ(90deg) skew(20deg, 20deg);
+        background: #000;
+        position: absolute;
+        top: 223px;
+        left: 378px;
+      }
+
+      .r-line-container .r-line {
+        position: absolute;
+        width: 2px;
+        background: #b71d3f;
+      }
+
+      .r-line-rotate1 {
+        height: 250px;
+        top: 130px;
+        left: 411px;
+      }
+
+      .r-line-rotate2 {
+        height: 180px;
+        top: 166px;
+        left: 380px;
+        transform: rotateZ(90deg);
+      }
+
+      .r-line-rotate3 {
+        height: 122px;
+        top: 194px;
+        left: 409px;
+        transform: rotateZ(-48deg);
+      }
+
+      .r-line-rotate4 {
+        height: 122px;
+        top: 196px;
+        left: 409px;
+        transform: rotateZ(45deg);
+      }
+
+      .r-circle1 {
+        width: 70px;
+        height: 70px;
+        background: #b71d3f;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        position: absolute;
+        top: 219px;
+        left: 375px;
+      }
+
+      .r-circle2 {
+        width: 64px;
+        height: 64px;
+        background: #000;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        position: absolute;
+        top: 222px;
+        left: 378px;
+      }
+
+      /* 靠后的五角星，也就是看上去中间有线的五角星 */
+      .star-back {
+        width: 512px;
+        height: 512px;
+        transform: rotateZ(0deg);
+      }
+
+      .triangle {
+        width: 0;
+        height: 0;
+        position: absolute;
+        border: 128.39px solid transparent;
+        border-top: 93.28px solid #b71d3f;
+      }
+
+      .triangle-small {
+        width: 0;
+        height: 0;
+        position: absolute;
+        display: block;
+        border: 115.55px solid transparent;
+        border-top: 83.95px solid #000;
+      }
+
+      .star-back-rotate1 {
+        transform: rotateZ(108deg);
+        top: 124px;
+        left: 65px;
+      }
+
+      .star-back-rotate2 {
+        transform: rotateZ(181deg);
+        top: 76px;
+        left: 131px;
+      }
+
+      .star-back-rotate3 {
+        transform: rotateZ(251deg);
+        top: 121px;
+        left: 193px;
+      }
+
+      .star-back-rotate4 {
+        transform: rotateZ(108deg);
+        top: 137px;
+        left: 84px;
+      }
+
+      .star-back-rotate5 {
+        transform: rotateZ(181deg);
+        top: 94px;
+        left: 143px;
+      }
+
+      .star-back-rotate6 {
+        transform: rotateZ(251deg);
+        top: 134px;
+        left: 199px;
+      }
+
+      /* 十二星座 */
+      .constellation {
+        position: absolute;
+        color: red;
+        text-align: center;
+        width: 512px;
+        height: 512px;
+        top: 0;
+      }
+
+      .ARI {
+        position: absolute;
+        top: 448px;
+        left: 195px;
+        transform: rotateZ(195deg);
+      }
+
+      .TAU {
+        position: absolute;
+        top: 391px;
+        left: 100px;
+        transform: rotateZ(228deg);
+      }
+
+      .GEM {
+        position: absolute;
+        top: 298px;
+        left: 47px;
+        transform: rotateZ(255deg);
+      }
+
+      .CAN {
+        position: absolute;
+        top: 190px;
+        left: 46px;
+        transform: rotateZ(288deg);
+      }
+
+      .LEO {
+        position: absolute;
+        top: 98px;
+        left: 99px;
+        transform: rotateZ(300deg);
+      }
+
+      .VIR {
+        position: absolute;
+        top: 42px;
+        left: 195px;
+        transform: rotateZ(345deg);
+      }
+
+      .LIB {
+        position: absolute;
+        top: 41px;
+        left: 305px;
+        transform: rotateZ(375deg);
+      }
+
+      .SCO {
+        position: absolute;
+        top: 97px;
+        left: 398px;
+        transform: rotateZ(400deg);
+      }
+
+      .SAG {
+        position: absolute;
+        top: 190px;
+        left: 452px;
+        transform: rotateZ(390deg);
+      }
+
+      .CAP {
+        position: absolute;
+        top: 298px;
+        left: 453px;
+        transform: rotateZ(395deg);
+      }
+
+      .AQU {
+        position: absolute;
+        top: 393px;
+        left: 399px;
+        transform: rotateZ(315deg);
+      }
+
+      .PIS {
+        position: absolute;
+        top: 448px;
+        left: 305px;
+        transform: rotateZ(340deg);
+      }
+
+      /* 靠后的五角星上的线 */
+      .s-line-container {
+        position: absolute;
+        width: 512px;
+        height: 512px;
+        top: 0;
+        animation: rotate 3s linear 2s 1;
+      }
+
+      .s-line-container .s-line {
+        position: absolute;
+        width: 2px;
+        height: 137px;
+        background: #b71d3f;
+      }
+
+      .s-line-rotate1 {
+        top: 136px;
+        left: 216px;
+        transform: rotateZ(-36deg);
+      }
+
+      .s-line-rotate2 {
+        top: 136px;
+        left: 295px;
+        transform: rotateZ(36deg);
+      }
+
+      .s-line-rotate3 {
+        top: 161px;
+        left: 380px;
+        transform: rotateZ(-72deg);
+        transform-origin: bottom;
+      }
+
+      .s-line-rotate4 {
+        top: 248px;
+        left: 258px;
+        transform: rotateZ(-1deg);
+        transform-origin: bottom;
+      }
+
+      .s-line-rotate5 {
+        top: 157px;
+        left: 130px;
+        transform: rotateZ(74deg);
+        transform-origin: bottom;
+      }
+
+      /* 左边像月亮的圆 */
+      .circle1-Left {
+        width: 162px;
+        height: 162px;
+        background: #b71d3f;
+        border-radius: 50%;
+        border: 2px solid #b71d3f;
+        position: absolute;
+        top: 170px;
+        left: 2px;
+      }
+
+      .circle2-Left {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        background: #000;
+        position: absolute;
+        top: 186px;
+        left: 33px;
+      }
+
+      /* 靠前的五角星 */
+      .star-front {
+        width: 512px;
+        height: 512px;
+        position: absolute;
+        top: 0;
+      }
+
+      .star-front-rotate1 {
+        transform: rotateZ(72deg);
+        top: 167px;
+        left: 63px;
+      }
+
+      .star-front-rotate2 {
+        transform: rotateZ(-72deg);
+        top: 167px;
+        left: 195px;
+      }
+
+      .star-front-rotate3 {
+        top: 215px;
+        left: 130px;
+      }
+
+      .star-front-rotate4 {
+        transform: rotateZ(72deg);
+        top: 174px;
+        left: 82px;
+      }
+
+      .star-front-rotate5 {
+        transform: rotateZ(-72deg);
+        top: 178px;
+        left: 200px;
+      }
+
+      .star-front-rotate6 {
+        top: 219px;
+        left: 143px;
+      }
+
+      /* 四边的方向 */
+      .direction {
+        position: absolute;
+        top: 0;
+        width: 512px;
+        height: 512px;
+      }
+
+      .d-circle {
+        width: 25px;
+        height: 25px;
+        background: #000;
+        border-radius: 50%;
+        border: 2px solid #b71d3f;
+        position: absolute;
+        color: #b71d3fff;
+        text-align: center;
+        line-height: 25px;
+      }
+
+      .d-top {
+        top: 0;
+        left: 242px;
+        transform: rotateZ(180deg);
+      }
+
+      .d-bottom {
+        top: 483px;
+        left: 242px;
+      }
+
+      .d-left {
+        top: 239px;
+        left: 0;
+        transform: rotateZ(90deg);
+      }
+
+      .d-right {
+        top: 239px;
+        left: 483px;
+        transform: rotateZ(270deg);
+      }
+    </style>
+  </head>
+  <script>
+    document.ready(function () {
+      let Arr = [
+        {
+          id: 1,
+          name: '三角形练习',
+          className: 'triangle',
+        },
+        {
+          id: 2,
+          name: '梯形练习',
+          className: 'trapzoid',
+        },
+        {
+          id: 3,
+          name: '球体练习',
+          className: 'sphere',
+        },
+        {
+          id: 4,
+          name: '椭圆练习',
+          className: 'ellipse',
+        },
+        {
+          id: 5,
+          name: '半圆练习',
+          className: 'semicicle',
+        },
+        {
+          id: 6,
+          name: '菱形练习',
+          className: 'rhombus',
+        },
+        {
+          id: 7,
+          name: '心形练习',
+          className: 'heart',
+        },
+        {
+          id: 8,
+          name: '扇形练习',
+          className: 'sector',
+        },
+        {
+          id: 9,
+          name: '五边形练习',
+          className: 'pentagonal',
+        },
+        {
+          id: 10,
+          name: '六边形练习',
+          className: 'hexagon',
+        },
+        {
+          id: 11,
+          name: '长方体练习',
+          className: 'cuboid',
+        },
+      ]
+      let fun = () => {
+        // Arr.map(item => {
+        //   return (
+        //     <div class="cr-css">
+        //       <p class="title">{item.name}</p>
+        //       <i class={item.className}/>
+        //     </div>
+        //   )
+        // })
+        for (let i = 0; i < Arr.length; i++) {
+          let html = document.getElementById('container').html
+          console.log('html', html)
+        }
+      }
+    })
+  </script>
+  <body>
+    <div id="container">
+      <!-- 长方体练习-----这一部分得重新写 -->
+      <div class="cuboid">
+        <!--前面 -->
+        <div class="front"></div>
+        <!--后面 -->
+        <div class="back"></div>
+        <!--左面 -->
+        <div class="left"></div>
+        <!--右面 -->
+        <div class="right"></div>
+        <!--上面 -->
+        <div class="top"></div>
+        <!--下面 -->
+        <div class="bottom"></div>
+      </div>
+      <div class="cylinder">
+        <div class="ellipse"></div>
+        <div class="rectangle"></div>
+      </div>
+      <div class="pyramid">
+        <!--前面 -->
+        <div class="front"></div>
+        <!--后面 -->
+        <div class="back"></div>
+        <!--左面 -->
+        <div class="left"></div>
+        <!--右面 -->
+        <div class="right"></div>
+
+        <!--下面 -->
+        <div class="bottom"></div>
+      </div>
+      <div class="MagicCircle">
+        <!-- 从外数第一个圈 -->
+        <div class="circle1"></div>
+
+        <!-- 从外数第二个圈 -->
+        <div class="circle2"></div>
+
+        <!-- 第二个圈和第三个圈之间的二十四个连线 -->
+        <div class="c-line-container">
+          <div class="c-line c-line-rotate1"></div>
+          <div class="c-line c-line-rotate2"></div>
+          <div class="c-line c-line-rotate3"></div>
+          <div class="c-line c-line-rotate4"></div>
+          <div class="c-line c-line-rotate5"></div>
+          <div class="c-line c-line-rotate6"></div>
+          <div class="c-line c-line-rotate7"></div>
+          <div class="c-line c-line-rotate8"></div>
+          <div class="c-line c-line-rotate9"></div>
+          <div class="c-line c-line-rotate10"></div>
+          <div class="c-line c-line-rotate11"></div>
+          <div class="c-line c-line-rotate12"></div>
+          <div class="c-line c-line-rotate13"></div>
+          <div class="c-line c-line-rotate14"></div>
+          <div class="c-line c-line-rotate15"></div>
+          <div class="c-line c-line-rotate16"></div>
+          <div class="c-line c-line-rotate17"></div>
+          <div class="c-line c-line-rotate18"></div>
+          <div class="c-line c-line-rotate19"></div>
+          <div class="c-line c-line-rotate20"></div>
+          <div class="c-line c-line-rotate21"></div>
+          <div class="c-line c-line-rotate22"></div>
+          <div class="c-line c-line-rotate23"></div>
+          <div class="c-line c-line-rotate24"></div>
+        </div>
+
+        <!-- 从外数第三个圈 -->
+        <div class="circle3"></div>
+
+        <!-- 第三个圈和第四个圈之间的矩形 -->
+        <div class="rectangle-container">
+          <div class="rectangle1"></div>
+          <div class="rectangle2"></div>
+
+          <div class="rectangle3"></div>
+          <div class="rectangle4"></div>
+
+          <div class="rectangle5"></div>
+          <div class="rectangle6"></div>
+        </div>
+
+        <!-- 从外数第四个圈 -->
+        <div class="circle4"></div>
+
+        <!-- 右边菱形的组合 -->
+        <div class="rhombus-container">
+          <div class="rhombus1"></div>
+          <div class="rhombus2"></div>
+
+          <div class="rhombus3"></div>
+          <div class="rhombus4"></div>
+
+          <!-- 菱形中间的线 -->
+          <div class="r-line-container">
+            <div class="r-line r-line-rotate1"></div>
+            <div class="r-line r-line-rotate2"></div>
+            <div class="r-line r-line-rotate3"></div>
+            <div class="r-line r-line-rotate4"></div>
+          </div>
+
+          <!-- 覆盖在菱形上的圆形 -->
+          <div class="r-circle1"></div>
+          <div class="r-circle2"></div>
+        </div>
+
+        <!-- 靠后的五角星，也就是看上去中间有线的五角星 -->
+        <div class="star-back">
+          <div class="triangle star-back-rotate1"></div>
+          <div class="triangle star-back-rotate2"></div>
+          <div class="triangle star-back-rotate3"></div>
+
+          <div class="triangle-small star-back-rotate4"></div>
+          <div class="triangle-small star-back-rotate5"></div>
+          <div class="triangle-small star-back-rotate6"></div>
+        </div>
+
+        <div class="constellation">
+          <!-- 白羊座 -->
+          <div class="ARI">♈︎</div>
+          <!-- 金牛座 -->
+          <div class="TAU">♉︎</div>
+          <!-- 双子座 -->
+          <div class="GEM">♊︎</div>
+          <!-- 巨蟹座 -->
+          <div class="CAN">♋︎</div>
+          <!-- 狮子座 -->
+          <div class="LEO">♌︎</div>
+          <!-- 处女座  -->
+          <div class="VIR">♍︎</div>
+          <!-- 天秤座  -->
+          <div class="LIB">♎︎</div>
+          <!-- 天蝎座 -->
+          <div class="SCO">♏︎</div>
+          <!-- 射手座 -->
+          <div class="SAG">♐︎</div>
+          <!-- 摩羯座 -->
+          <div class="CAP">♑︎</div>
+          <!-- 水瓶座  -->
+          <div class="AQU">♒︎</div>
+          <!-- 双鱼座   -->
+          <div class="PIS">♓︎</div>
+        </div>
+
+        <!-- 靠后的五角星上的线 -->
+        <div class="s-line-container">
+          <div class="s-line s-line-rotate1"></div>
+          <div class="s-line s-line-rotate2"></div>
+          <div class="s-line s-line-rotate3"></div>
+          <div class="s-line s-line-rotate4"></div>
+          <div class="s-line s-line-rotate5"></div>
+        </div>
+
+        <!-- 左边像月亮的圆  -->
+        <div class="circle1-Left"></div>
+        <div class="circle2-Left"></div>
+
+        <!-- 靠前的五角星 -->
+        <div class="star-front">
+          <div class="triangle star-front-rotate1"></div>
+          <div class="triangle star-front-rotate2"></div>
+          <div class="triangle star-front-rotate3"></div>
+
+          <div class="triangle-small star-front-rotate4"></div>
+          <div class="triangle-small star-front-rotate5"></div>
+          <div class="triangle-small star-front-rotate6"></div>
+        </div>
+
+        <!-- 四边的方向 -->
+        <div class="direction">
+          <div class="d-circle d-top">北</div>
+          <div class="d-circle d-bottom">南</div>
+          <div class="d-circle d-left">西</div>
+          <div class="d-circle d-right">東</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

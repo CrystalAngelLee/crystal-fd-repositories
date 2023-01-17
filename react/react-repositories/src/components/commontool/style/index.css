@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+html,body,#root {
+  height: 100%;
+  font-size: 14px;
+  margin: 0;
+}
+.cr-chineseReg-tool {
+  height: 100%;
+}
+.cr-chineseReg-tool-container {
+  width: 70%;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.cr-chineseReg-tool-container-statement {
+  height: 70px;
+  overflow-y: scroll;
+  font-size: 24px;
+  color: #666;
+}
+.cr-chineseReg-tool-container-header {
+  margin: 10px 0;
+}
+.cr-chineseReg-tool-container-header>span {
+  border: 1px solid palevioletred;
+  border-radius: 4px;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+.cr-chineseReg-tool-container-header>span:not(:last-child) {
+  margin-right: 10px;
+}
+.cr-chineseReg-tool-container-main {
+  display: flex;
+  margin-top: 10px;
+  position: absolute;
+  width: 100%;
+  top: 110px;
+  bottom: 10px;
+}
+.cr-chineseReg-tool-container-main-detection {
+  padding: 6px;
+  border: 1px solid #ddd;
+  overflow-y: scroll;
+  position: relative;
+  flex: 1;
+}
+textarea {
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-right: none;
+}
+.no-data {
+  position: absolute;
+  color: #eee;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}

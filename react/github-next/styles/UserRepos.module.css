@@ -1,0 +1,21 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+}
+.root + .root {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+.repo-title {
+  font-size: 20px;
+}
+.lang-star {
+  display: flex;
+}
+.lang-star > span {
+  width: 120px;
+  text-align: right;
+}
+.other-info > span {
+  margin-right: 10px;
+}

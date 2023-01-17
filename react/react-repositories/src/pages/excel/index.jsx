@@ -1,5 +1,5 @@
 import React from 'react'
-import { Excel } from '../../components'
+import { Excel } from '../components'
 
 const dataSource = [
   {

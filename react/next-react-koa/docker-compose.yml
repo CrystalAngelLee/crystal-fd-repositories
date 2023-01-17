@@ -1,0 +1,19 @@
+version: '2'
+services:
+  #redis容器
+  redis:
+    #定义主机名
+    hostname: myredis
+    #使用的镜像
+    image: redis:6.0.6
+    #容器的映射端口
+    ports:
+      - 6381:6379
+    restart: always
+    #定义挂载点
+    volumes:
+      - ./redis/data:/data
+    #环境变量
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=en_US.UTF-8

@@ -1,0 +1,15 @@
+import React, { FC } from "react";
+import styled from "@emotion/styled";
+import { style } from "./styles";
+import { {{name}}Props, StyledProps } from './index.d'
+
+const {{name}}:FC<{{name}}Props> = ({ className: prefixCls }) => {
+  return (
+    <div className={prefixCls}>
+
+    </div>
+  );
+};
+export default styled({{name}})<StyledProps>`
+ ${style}
+`;
