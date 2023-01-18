@@ -12,7 +12,12 @@
 
 1. 在 scaffold-demo-utils 文件夹下执行 `npm link`
 2. 回到当前文件夹下执行 `npm link scaffold-demo-utils`
-3. 执行 `npm i -S scaffold-demo-utils`
+3. 手动添加 dependencies
+   ```json
+   "dependencies": {
+    "scaffold-demo-utils": "^1.0.0"
+   }
+   ```
 
 # 注意点【developer】
 
