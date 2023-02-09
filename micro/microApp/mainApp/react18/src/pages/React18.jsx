@@ -1,10 +1,18 @@
-import React, { memo } from 'react'
-import { Link } from 'react-router-dom'
+import React, { memo, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import microApp from '@micro-zoe/micro-app'
 
 const React18Box = () => {
+  const location = useLocation()
+
+  useEffect(() => {
+    microApp.setData('react18', {
+      path: location.pathname.replace('/react18', ''),
+    })
+  }, [location.pathname])
+
   return (
     <div>
-      <Link to="/">返回</Link>
       <micro-app
         name="react18"
         url="http://localhost:3311/"

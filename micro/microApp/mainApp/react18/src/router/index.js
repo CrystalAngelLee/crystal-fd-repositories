@@ -1,21 +1,35 @@
+import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import Home from '../pages/Home'
-import Vue3 from '../pages/Vue3'
-import React18 from '../pages/React18'
+import Home from '../pages/home'
+
+const React18 = lazy(() =>
+  import(/* webpackChunkName: "react18" */ '../pages/React18')
+)
+const Vue3 = lazy(() => import(/* webpackChunkName: "vue3" */ '../pages/Vue3'))
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/*',
     element: <Home />,
     errorElement: <div>404</div>,
-  },
-  {
-    path: 'react18',
-    element: <React18 />,
-  },
-  {
-    path: 'vue3',
-    element: <Vue3 />,
+    children: [
+      {
+        path: 'react18/*',
+        element: (
+          <Suspense fallback={<div>loading...</div>}>
+            <React18 />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'vue3/*',
+        element: (
+          <Suspense fallback={<div>loading...</div>}>
+            <Vue3 />
+          </Suspense>
+        ),
+      },
+    ],
   },
 ])
 

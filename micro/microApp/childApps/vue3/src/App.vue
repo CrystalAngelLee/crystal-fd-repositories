@@ -8,12 +8,41 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
+  },
+  watch: {
+    $route({ path }) {
+      if (window.microApp) {
+        window.microApp.dispatch({
+          path: path,
+        })
+      }
+    },
+  },
+  mounted() {
+    const router = useRouter()
+    function dataListener(data) {
+      if (data.path) {
+        router.push(data.path)
+      }
+    }
+    if (window.__MICRO_APP_ENVIRONMENT__) {
+      window.microApp.addDataListener(dataListener)
+    }
+  },
+  unmounted() {
+    if (window.__MICRO_APP_ENVIRONMENT__) {
+      // 解绑监听函数
+      window.microApp.removeDataListener()
+      // 清空当前子应用的所有绑定函数(全局数据函数除外)
+      window.microApp.clearDataListener()
+    }
   },
 }
 </script>

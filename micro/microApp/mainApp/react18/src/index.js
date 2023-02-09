@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client'
 import microApp from '@micro-zoe/micro-app'
 import { RouterProvider } from 'react-router-dom'
 import router from './router'
-import './index.css'
 import reportWebVitals from './reportWebVitals'
+import './styles'
 
 microApp.start()
 

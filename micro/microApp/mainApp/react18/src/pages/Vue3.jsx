@@ -1,13 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, memo } from 'react'
+import { useLocation } from 'react-router-dom'
+import microApp from '@micro-zoe/micro-app'
 
 const Vue3 = () => {
+  const location = useLocation()
+
+  useEffect(() => {
+    microApp.setData('vue3', {
+      path: location.pathname.replace('/vue3', ''),
+    })
+  }, [location.pathname])
+
   return (
     <div>
-      <Link to="/">返回</Link>
       <micro-app name="vue3" url="http://localhost:3312/" baseroute="/vue3" />
     </div>
   )
 }
 
-export default Vue3
+export default memo(Vue3)
