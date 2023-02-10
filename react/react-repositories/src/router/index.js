@@ -1,23 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom'
-import App from '../pages/account'
-import Statistics from '../pages/account/pages/statistics'
-import Mine from '../pages/account/pages/mine'
+import App from '../pages/excel'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <div>404</div>,
-    children: [
-      {
-        path: 'mine',
-        element: <Mine />,
-      },
-      {
-        path: '/statistics',
-        element: <Statistics />,
-      },
-    ],
   },
 ])
 
