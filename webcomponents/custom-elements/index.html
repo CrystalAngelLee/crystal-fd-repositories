@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自定义元素</title>
+    <style>
+      /* defined: 组件是否已定义 */
+      :not(:defined) {
+        width: 100px;
+        height: 300px;
+        background: aqua
+          linear-gradient(
+            -90deg,
+            transparent,
+            transparent 20%,
+            white 40%,
+            transparent 60%
+          )
+          0 / 300%;
+        animation: loading 2s infinite;
+      }
+
+      @keyframes loading {
+        to {
+          background-position: 300% 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 不能写成自闭和标签 -->
+    <my-element></my-element>
+    <my-bubbles click>ye</my-bubbles>
+    <delay-element>test loading</delay-element>
+
+    <iframe src="./iframe.html"></iframe>
+    <life-cycle></life-cycle>
+
+    <script>
+      // 判断当前浏览器是否支持web components
+      console.log('customElements' in window)
+      customElements.define(
+        'my-element',
+        class extends HTMLElement {
+          constructor() {
+            super()
+            console.log('this', this)
+
+            this.innerHTML = 'hello world'
+            this.onclick = () => {
+              alert('woo~~')
+            }
+          }
+        }
+      )
+    </script>
+    <script type="module">
+      import { FcBubbles } from 'https://unpkg.com/fancy-components'
+      new FcBubbles()
+
+      customElements.define(
+        'my-bubbles',
+        class extends customElements.get('fc-bubbles') {
+          constructor() {
+            super()
+
+            this.onclick = () => console.log('extends bubbles')
+          }
+        }
+      )
+    </script>
+    <script>
+      setTimeout(
+        () =>
+          customElements.define(
+            'delay-element',
+            class extends HTMLElement {
+              constructor() {
+                super()
+
+                this.innerHTML = '<h1>I am here</h1>'
+              }
+            }
+          ),
+        2000
+      )
+      customElements
+        .whenDefined('delay-element')
+        .then(
+          () => (document.querySelector('delay-element').innerHTML = 'hello ')
+        )
+        .catch((err) => console.error(err))
+    </script>
+    <script>
+      const el = document.createElement('custom-element')
+
+      class ELEMENT extends HTMLElement {}
+      customElements.define('custom-element', ELEMENT)
+      console.log(el instanceof ELEMENT)
+
+      customElements.upgrade(el)
+
+      console.log(el instanceof ELEMENT)
+    </script>
+    <script>
+      const iframe = document.querySelector('iframe')
+      iframe.onload = () => {
+        const h1 = iframe.contentDocument.querySelector('life-cycle-adopted')
+        // 粘贴
+        document.body.append(
+          // 剪切
+          document.adoptNode(h1)
+        )
+      }
+      // 生命周期
+      customElements.define(
+        'life-cycle',
+        class extends HTMLElement {
+          constructor() {
+            super()
+            // 相当于 Vue 的 setup
+            console.log('先运行构造函数')
+          }
+          connectedCallback() {
+            // 相当于 Vue 的 mounted
+            console.log('再运行连接回调')
+          }
+          disconnectedCallback() {
+            // 相当于 Vue 的 unmounted
+            console.log('当删除组件时才会运行失联回调')
+          }
+          adoptedCallback() {
+            // 当使用 document.adoptNode 后会触发该生命周期 有跨域限制
+            console.log('Custom square element moved to new page.')
+          }
+          attributeChangedCallback(name, oldValue, newValue) {
+            // 相当于 Vue 的 watch
+            console.log('Custom square element attributes changed.')
+          }
+        }
+      )
+    </script>
+  </body>
+</html>
