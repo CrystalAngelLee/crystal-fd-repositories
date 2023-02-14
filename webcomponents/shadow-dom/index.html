@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <my-shadow></my-shadow>
+    <script>
+      customElements.define(
+        'my-shadow',
+        class extends HTMLElement {
+          constructor() {
+            super()
+            // 1. 创建 shadow root
+            const shadow = this.attachShadow({ mode: 'open' })
+
+            // 2. 创建 shadow DOM 结构
+            const wrapper = document.createElement('span')
+            wrapper.setAttribute('class', 'wrapper')
+            wrapper.innerHTML = '<h1>shadow DOM</h1>'
+
+            // 3. 将所创建的元素添加到 Shadow DOM 上
+            shadow.appendChild(wrapper)
+          }
+        }
+      )
+    </script>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <template id="my-paragraph">
+      <p>My paragraph</p>
+      <slot name="my-text"></slot>
+      <style>
+        p {
+          color: white;
+          background-color: #666;
+          padding: 5px;
+        }
+      </style>
+    </template>
+    <my-paragraph></my-paragraph>
+
+    <script>
+      // template
+      customElements.define(
+        'my-paragraph',
+        class extends HTMLElement {
+          constructor() {
+            super()
+            let template = document.getElementById('my-paragraph')
+            let templateContent = template.content.cloneNode(true)
+
+            this.appendChild(templateContent)
+          }
+        }
+      )
+    </script>
+
+    <my-slot>
+      <span slot="my-text">Let's have some different text!</span>
+    </my-slot>
+    <script>
+      // slot
+      customElements.define(
+        'my-slot',
+        class extends HTMLElement {
+          constructor() {
+            super()
+            let template = document.getElementById('my-paragraph')
+            let templateContent = template.content.cloneNode(true)
+
+            const shadowRoot = this.attachShadow({ mode: 'open' }).appendChild(
+              templateContent.cloneNode(true)
+            )
+          }
+        }
+      )
+    </script>
+  </body>
+</html>
