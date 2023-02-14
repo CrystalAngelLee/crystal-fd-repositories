@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fancy-components</title>
+  <style>
+    html, body { height: 100% }
+    body {
+      display: grid;
+      place-items: center
+    }
+
+    /*
+      改变这些颜色试试效果 很好玩的
+      但无论改变成什么颜色 当动画结束后国旗都会恢复红色背景黄色五星的颜色
+      因为国旗神圣 不可随意修改颜色 红色象征革命 黄色是为了在红地上显出光明 修改色号后国旗将会失去它原本的含义
+      而动画可以改变颜色的原因是因为五角星刚出现时也没按照原本的黄色去绘制
+      因为黄颜色在白色背景下会看不清楚 但如果背景是深色的话用黄色就没事
+    */
+    fc-china {
+      /* 国旗描边时的颜色 */
+      --flag-stroke: red;
+
+      /* 五角星变成实心时的颜色 */
+      --star-fill: red;
+
+      /* 画五角星时的颜色 */
+      --star-stroke: red;
+
+      /* 几秒后才开始绘制国旗 */
+      --delay: 0s;
+
+      /* 绘制国旗的过程一共需要几秒 */
+      --dur: 6.5s
+    }
+  </style>
+</head>
+<body>
+<fc-china></fc-china>
+
+<script type="module">
+import { FcChina } from 'https://unpkg.zhimg.com/fancy-components'
+
+// new 就相当于全局注册了这个组件，相当于 Vue 的 Vue.component('FcChina', 组件)
+new FcChina()
+</script>
+</body>
+</html>

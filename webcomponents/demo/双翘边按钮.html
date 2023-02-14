@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fancy-components</title>
+  <style>
+    html, body { height: 100% }
+    body {
+      display: grid;
+      place-items: center
+    }
+  </style>
+</head>
+<body>
+<fc-dbl-warp-btn></fc-dbl-warp-btn>
+
+<script type="module">
+import { FcDblWarpBtn } from 'https://unpkg.zhimg.com/fancy-components'
+
+// new 就相当于全局注册了这个组件，相当于 Vue 的 Vue.component('FcDblWarpBtn', 组件)
+new FcDblWarpBtn()
+</script>
+</body>
+</html>

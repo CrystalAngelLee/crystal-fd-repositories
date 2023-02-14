@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css-doodle</title>
+  <script src="https://unpkg.zhimg.com/css-doodle"></script>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: radial-gradient(#459dc1, #070729);
+      display: grid;
+      place-items: center;
+      /* 公众号：前端学不动 搜：居中篇 */
+    }
+  </style>
+</head>
+<body>
+  <css-doodle>
+    <!-- css-doodle.com -->
+    :doodle {
+      @grid: 80x1 / 100vw 100vh;
+      @min-size: 100px;
+      filter: url(#filter);
+      animation: r 23s linear infinite
+    }
+
+    @size: 100% 50%;
+    position: absolute;
+    top: 25%;
+    transform: rotate(@r(360deg));
+    perspective: 130px;
+
+    ::after {
+      content: '';
+      position: absolute;
+      @size: @r(10px);
+      background: #fff;
+      box-shadow: @m3(0 0 calc(.5vmin + 5px) #fff);
+      animation: cycle @r(2s, 8s) linear infinite;
+      animation-delay: -@r(100s);
+      --trans: scaleX(@r(.1, 5)) translateZ(105px);
+      transform: rotateY(0) @var(--trans)
+    }
+
+    @keyframes cycle {
+      to {
+        transform: rotateY(@p(-1turn, 1turn)) @var(--trans)
+      }
+    }
+
+    @keyframes r {
+      to { transform: rotate(@p(-1turn, 1turn)) }
+    }
+  </css-doodle>
+  
+  <svg style="width: 0; height: 0;">
+    <filter id="filter">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur">
+      </feGaussianBlur>
+      <feColorMatrix in="blur" mode="matrix" values="
+          1 0 0 0 0
+          0 1 0 0 0
+          0 0 1 0 0
+          0 0 0 18 -7
+        "
+        result="goo"  
+      >
+      </feColorMatrix>
+      <feBlend in="SourceGraphic" in2="goo"></feBlend>
+    </filter>
+  </svg>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fancy-components</title>
+  <style>
+    html, body { height: 100% }
+    body {
+      display: grid;
+      place-items: center;
+      background: #3f2766
+    }
+    fc-3d-btn {
+      --color: #6e50a6;
+      --shadow-color: rgba(255, 255, 255, .4);
+      --inset-shadow-color: #315;
+      --inset-shadow-color-active: rgba(49, 23, 75, .9);
+      --cover-color: rgba(0, 0, 0, .4)
+    }
+  </style>
+</head>
+<body>
+<fc-3d-btn></fc-3d-btn>
+
+<script type="module">
+import { Fc3DBtn } from 'https://unpkg.zhimg.com/fancy-components'
+
+// new 就相当于全局注册了这个组件，相当于 Vue 的 Vue.component('Fc3DBtn', 组件)
+new Fc3DBtn()
+</script>
+</body>
+</html>

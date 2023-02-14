@@ -32,15 +32,10 @@
   <body>
     <!-- 不能写成自闭和标签 -->
     <my-element></my-element>
-    <my-bubbles click>ye</my-bubbles>
-    <delay-element>test loading</delay-element>
-
-    <iframe src="./iframe.html"></iframe>
-    <life-cycle></life-cycle>
-
     <script>
       // 判断当前浏览器是否支持web components
       console.log('customElements' in window)
+      // 定义一个名为 <my-element> 的组件
       customElements.define(
         'my-element',
         class extends HTMLElement {
@@ -56,12 +51,15 @@
         }
       )
     </script>
+
+    <my-bubbles click>bubbles</my-bubbles>
     <script type="module">
       import { FcBubbles } from 'https://unpkg.com/fancy-components'
       new FcBubbles()
 
       customElements.define(
         'my-bubbles',
+        // 获取 <fc-bubbles> 组件的构造函数
         class extends customElements.get('fc-bubbles') {
           constructor() {
             super()
@@ -71,6 +69,8 @@
         }
       )
     </script>
+
+    <delay-element>test loading</delay-element>
     <script>
       setTimeout(
         () =>
@@ -86,6 +86,7 @@
           ),
         2000
       )
+      // 当 <delay-element> 组件定义后
       customElements
         .whenDefined('delay-element')
         .then(
@@ -94,16 +95,21 @@
         .catch((err) => console.error(err))
     </script>
     <script>
+      // 创建一个 <custom-element> 的元素，名为 el
       const el = document.createElement('custom-element')
 
       class ELEMENT extends HTMLElement {}
       customElements.define('custom-element', ELEMENT)
       console.log(el instanceof ELEMENT)
 
+      // 升级创建的 el 元素
       customElements.upgrade(el)
 
       console.log(el instanceof ELEMENT)
     </script>
+
+    <iframe src="./iframe.html"></iframe>
+    <life-cycle color="red"></life-cycle>
     <script>
       const iframe = document.querySelector('iframe')
       iframe.onload = () => {
@@ -117,29 +123,73 @@
       // 生命周期
       customElements.define(
         'life-cycle',
+        /**
+         * 除了可以继承 HTMLElement 外，还可以继承下面的子类
+         **/
         class extends HTMLElement {
+          // 被观察的属性:性能 相当于vue的data
+          static observedAttributes = ['color']
+          // 也可以写成下面这样：
+          // static get observedAttributes () { return ['color'] }
+
+          // getter 和 setter 配合 attributeChangedCallback 打造属性特性联动同步
+          get color() {
+            return this.getAttribute('color')
+          }
+          set color(val) {
+            this.setAttribute('color', val)
+          }
+
           constructor() {
             super()
             // 相当于 Vue 的 setup
             console.log('先运行构造函数')
+            this.innerHTML = '<h1 >生命周期</h1>'
           }
+
           connectedCallback() {
             // 相当于 Vue 的 mounted
             console.log('再运行连接回调')
           }
+
           disconnectedCallback() {
             // 相当于 Vue 的 unmounted
             console.log('当删除组件时才会运行失联回调')
           }
+
           adoptedCallback() {
             // 当使用 document.adoptNode 后会触发该生命周期 有跨域限制
             console.log('Custom square element moved to new page.')
           }
+
           attributeChangedCallback(name, oldValue, newValue) {
-            // 相当于 Vue 的 watch
+            // 属性改变之后的回调 相当于 Vue 的 watch
             console.log('Custom square element attributes changed.')
+            if (oldValue === newValue) return
+
+            if (name === 'color') {
+              this.style.color = newValue
+            }
           }
         }
+      )
+    </script>
+
+    <!-- 注意这里的使用 -->
+    <input is="my-input" />
+    <script>
+      // 继承
+      customElements.define(
+        'my-input',
+        class extends HTMLInputElement {
+          constructor() {
+            super()
+
+            this.placeholder = '属于我们的输入框！'
+            this.disabled = true
+          }
+        },
+        { extends: 'input' }
       )
     </script>
   </body>

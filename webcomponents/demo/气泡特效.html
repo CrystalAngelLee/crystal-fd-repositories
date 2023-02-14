@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fancy-components</title>
+  <style>
+    html, body { height: 100% }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly
+    }
+
+    svg {
+      width: 20px;
+      stroke: #1cd;
+      cursor: pointer;
+      overflow: visible
+    }
+
+    fc-bubbles {
+      --spread-x: 80%
+    }
+  </style>
+</head>
+<body>
+
+<!-- 为 <fc-bubbles> 标签中加入 click 属性的话，默认每次点击都会出现气泡特效 -->
+<fc-bubbles click>
+  <!-- 里面可以放任何东西 -->
+  <svg viewBox="0 0 17 16" preserveAspectRatio="xMidYMid slice" fill="none">
+    <path d="M3,5.6H0.6c-0.2,0-0.3,0.1-0.4,0.2C0.1,5.8,0,6,0,6.2v9.2c0,0.2,0.1,0.3,0.2,0.4C0.3,15.9,0.4,16,0.6,16H3c0,0,0-0,0-0c0-0,0-0,0-0V6c0-0-0-0-0-0C3,5,3,5,3,5z" />
+    <path d="M15.2,4.9h-4.1l1-3.5c0,0,0-0.1,0-0.1c0.1-0.3,0-0.6-0.3-0.9C11.6,0.1,11.3,0,10.9,0H9.7C9.1,0,8.5,0.3,8.2,0.7l-3.5,5C4.4,6.1,4.3,6.4,4.3,6.8v8.6c0,0.2,0.1,0.3,0.2,0.4C4.6,15.9,4.7,16,4.9,16H14c1.7,0,3.1-1.3,3-2.9V6.7C17,5.7,16.1,4.9,15.2,4.9z" />
+  </svg>
+</fc-bubbles>
+
+
+<!-- 如果需要更加精细的控制 就不要再标签中加 click 属性啦！ -->
+<!-- 比方说我们希望取消点赞时不要再出现气泡特效的话 -->
+<!-- 就需要用 js 获取到 fc-bubbles 这个 dom 元素，然后元素上有一个 .active 属性可以控制气泡特效 -->
+<fc-bubbles>
+  <!-- 里面可以放任何东西 -->
+  <svg viewBox="0 0 17 16" preserveAspectRatio="xMidYMid slice" fill="none">
+    <path d="M3,5.6H0.6c-0.2,0-0.3,0.1-0.4,0.2C0.1,5.8,0,6,0,6.2v9.2c0,0.2,0.1,0.3,0.2,0.4C0.3,15.9,0.4,16,0.6,16H3c0,0,0-0,0-0c0-0,0-0,0-0V6c0-0-0-0-0-0C3,5,3,5,3,5z" />
+    <path d="M15.2,4.9h-4.1l1-3.5c0,0,0-0.1,0-0.1c0.1-0.3,0-0.6-0.3-0.9C11.6,0.1,11.3,0,10.9,0H9.7C9.1,0,8.5,0.3,8.2,0.7l-3.5,5C4.4,6.1,4.3,6.4,4.3,6.8v8.6c0,0.2,0.1,0.3,0.2,0.4C4.6,15.9,4.7,16,4.9,16H14c1.7,0,3.1-1.3,3-2.9V6.7C17,5.7,16.1,4.9,15.2,4.9z" />
+  </svg>
+</fc-bubbles>
+
+<script type="module">
+import { FcBubbles } from 'https://unpkg.zhimg.com/fancy-components'
+
+// new 就相当于全局注册了这个组件，相当于 Vue 的 Vue.component('FcBubbles', 组件)
+new FcBubbles()
+
+document.querySelectorAll('svg').forEach((svg, idx) => svg.onclick = function () {
+  const isFill = this.getAttribute('fill') === '#1cd'
+
+  this.setAttribute('fill', isFill ? 'none' : '#1cd')
+
+  // 获取到右边的那个 svg 的父元素(fc-bubbles) 然后取消点赞的时候不要显示气泡特效
+  idx && (this.parentNode.active = !isFill)
+})
+</script>
+</body>
+</html>

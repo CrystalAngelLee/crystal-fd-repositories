@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css-doodle</title>
+  <script src="https://unpkg.zhimg.com/css-doodle"></script>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #011627;
+      display: grid;
+      place-items: center;
+      /* 公众号：前端学不动 搜：居中篇 */
+    }
+  </style>
+</head>
+<body>
+  <css-doodle>
+    :doodle {
+      @grid: 1x1x100 / 100vmin;
+      animation: r 23s linear infinite
+    }
+
+    @size: 100% 50%;
+    position: absolute;
+    top: 25%;
+    transform: rotate(@r(360deg));
+    perspective: @r(100px, 200px);
+
+    ::after {
+      content: '';
+      position: absolute;
+      @size: @r(.5vmin, 5vmin);
+      color: @p(#fdfffc, #2ec4b6, #e71d36, #ff9f1c);
+      background: currentColor;
+      box-shadow: @m2(0 0 1.2vmin currentColor);
+      animation: cycle @r(2s) linear infinite;
+      --trans: scaleX(@r(1, 5)) translateZ(@r(10vmin, 20vmin));
+      transform: rotateY(0) @var(--trans)
+    }
+    :empty::after { display: none }
+
+    @keyframes cycle {
+      to {
+        transform: rotateY(@p(-1turn, 1turn)) @var(--trans)
+      }
+    }
+
+    @keyframes r {
+      to { transform: rotate(1turn) }
+    }
+  </css-doodle>
+</body>
+</html>
