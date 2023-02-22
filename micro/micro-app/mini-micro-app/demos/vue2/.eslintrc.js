@@ -1,0 +1,3 @@
+{
+  requireConfigFile: false
+}
