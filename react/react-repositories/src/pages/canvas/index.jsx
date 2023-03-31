@@ -17,6 +17,8 @@ import K from '../../static/img/16gl-K.png'
 import L from '../../static/img/16gl-L.png'
 import M from '../../static/img/16gl-M.png'
 import N from '../../static/img/16gl-N.png'
+import { filterData } from './db'
+console.log('filterData', filterData())
 
 const areas = {
   polygon: [
@@ -265,6 +267,7 @@ const Canvas = () => {
   }
 
   const parseExcel = (file) => {
+    console.log('file', file)
     if (!localStorage.getItem('excel')) {
       localStorage.setItem('excel', JSON.stringify(file))
       setFile(file)
