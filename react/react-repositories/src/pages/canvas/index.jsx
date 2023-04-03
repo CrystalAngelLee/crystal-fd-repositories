@@ -18,7 +18,7 @@ import L from '../../static/img/16gl-L.png'
 import M from '../../static/img/16gl-M.png'
 import N from '../../static/img/16gl-N.png'
 import { filterData } from './db'
-console.log('filterData', filterData())
+// console.log('filterData', filterData())
 
 const areas = {
   polygon: [
@@ -134,7 +134,6 @@ const Canvas = () => {
     const local_excel = localStorage.getItem('excel')
     if (local_excel) {
       parseFile(JSON.parse(local_excel))
-      setFile(JSON.parse(local_excel))
     }
   }, [])
 
@@ -177,6 +176,7 @@ const Canvas = () => {
     /* 获取会话路径 */
     // 获取 path 路径
     let columnPath = getCanvasPaths(old_data, headers)
+    console.log('columnPath', columnPath)
     if (columnPath) {
       // columnPath = columnPath.slice(0, 20)
       // console.log('columnPath', columnPath)
@@ -186,13 +186,13 @@ const Canvas = () => {
   }
 
   const showCurPath = (columnPath) => {
-    if (curIdx !== columnPath.length - 1) {
+    if (curIdx !== columnPath.length) {
+      console.log(111, curIdx, columnPath[curIdx])
+      if (columnPath[curIdx]) {
+        setPaths([columnPath[curIdx]])
+      }
+      curIdx = curIdx + 1
       setTimeout(() => {
-        console.log(111, curIdx, columnPath[curIdx])
-        if (columnPath[curIdx]) {
-          setPaths([columnPath[curIdx]])
-        }
-        curIdx = curIdx + 1
         showCurPath(columnPath)
       }, 10000)
     }
@@ -247,7 +247,7 @@ const Canvas = () => {
         headers.findIndex((h) => h === 'copy_type'),
       ]
     files.forEach((file) => {
-      let points = file[zone_chainIdx].split('_').filter((p) => {
+      let points = 'C_D_F_L_M'.split('_').filter((p) => {
         return !['A', 'K', 'J', 'I', 'N'].includes(p)
       })
       if (points.length > 1) {
@@ -262,8 +262,7 @@ const Canvas = () => {
         })
       }
     })
-    console.log('filePath', filePath)
-    return canvasPaths
+    return [canvasPaths[0]]
   }
 
   const parseExcel = (file) => {

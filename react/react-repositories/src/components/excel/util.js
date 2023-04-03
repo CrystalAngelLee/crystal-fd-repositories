@@ -53,6 +53,7 @@ export const parseExcel = (file) => {
     const rABS =
       typeof FileReader !== 'undefined' &&
       (FileReader.prototype || {}).readAsBinaryString
+    let isCSV
     if (rABS) {
       reader.readAsBinaryString(file)
     } else {
@@ -63,7 +64,10 @@ export const parseExcel = (file) => {
       if (!rABS) {
         data = new Uint8Array(data)
       }
-      let workBook = read(data, { type: rABS ? 'binary' : 'array' })
+      let workBook = read(data, {
+        type: rABS ? 'binary' : 'array',
+        codepage: 936,
+      })
       workBook.SheetNames.forEach((name) => {
         let sheet = workBook.Sheets[name]
         let json = utils.sheet_to_json(sheet, {

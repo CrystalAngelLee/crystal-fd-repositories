@@ -1,0 +1,25 @@
+.analysispath h1 {
+  text-align: center;
+}
+.analysispath-steps {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.analysispath-steps > div {
+  flex: 1 1;
+  background-color: #dfdfdf;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 30px;
+}
+.analysispath-visual-echart {
+  width: 100%;
+  height: 600px;
+}
+.analysispath-visual-item {
+  display: flex;
+}
+.analysispath-visual-item > div {
+  flex: 1 1;
+}
