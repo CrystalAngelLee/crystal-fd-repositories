@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import * as echarts from 'echarts'
-import { Button, Form } from 'antd'
+import { Button, Form, Table } from 'antd'
 import { Excel } from '../../components'
-import { files as FF, prefixCls, initialValues, fileds } from './constant'
+import {
+  files as FF,
+  prefixCls,
+  initialValues,
+  fileds,
+  deptSeriesOps,
+  originMap,
+} from './constant'
 import './index.css'
 
 const AnalysisPath = () => {
   const [formValues, setformValues] = useState(initialValues)
 
   useEffect(() => {
-    getBusinessEchart()
     parseExcel(FF)
   }, [formValues])
 
@@ -47,17 +53,153 @@ const AnalysisPath = () => {
     return res
   }
 
-  const getBusinessEchart = () => {
+  // 筛选部门
+  const getDeptList = (data, type = 'name') =>
+    data.reduce(
+      (p, c) =>
+        !!c[`dept_${type}_${formValues.dept}`]
+          ? [...p, c[`dept_${type}_${formValues.dept}`]]
+          : p,
+      []
+    )
+
+  // 获取EChart堆叠图展示数据
+  const getDeptSeries = (data) => {
+    return [
+      {
+        name: 'C-D', // 路径名称
+        data: [320, 302, 301, 334, 390, 330, 320], // length=部门数 内容=每个部门下对应的路径使用总数
+        stack: 'total',
+        ...deptSeriesOps,
+      },
+    ]
+  }
+
+  const getBusinessEchart = (data) => {
     // 1. 事业部柱状图
     let element = document.getElementById('new_dept_histogram')
+
+    let myChart = echarts.init(element)
+    myChart.clear()
+    const deptList = getDeptList(data)
+    const series = getDeptSeries(data)
+    let option
+    option = {
+      title: {
+        text: '新页面路径分析',
+        subtext: '部门',
+        left: 'center',
+      },
+      tooltip: {
+        trigger: 'axis',
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: deptList,
+        },
+      ],
+      yAxis: [
+        {
+          type: 'value',
+        },
+      ],
+      series,
+    }
+    option && myChart.setOption(option)
+  }
+
+  // 获取路径
+  const getUsersPath = (data) => {
+    return ['c-d']
+  }
+
+  // 获取用户展示柱状图数据
+  const getUsersSeries = (data) => {
+    return [
+      {
+        name: '商家', // 路径名称
+        data: [320, 302, 301, 334, 390, 330, 320], // length=部门数 内容=每个部门下对应的路径使用总数
+        ...deptSeriesOps,
+      },
+      {
+        name: '运营',
+        data: [20], // length=部门数 内容=每个部门下对应的路径使用总数
+        ...deptSeriesOps,
+      },
+    ]
+  }
+
+  const getUsersEchart = (data) => {
+    let element = document.getElementById('new_user_histogram')
+
+    let myChart = echarts.init(element)
+    myChart.clear()
+    const deptList = getUsersPath(data)
+    const series = getUsersSeries(data)
+    let option
+    option = {
+      title: {
+        text: '新页面路径分析',
+        subtext: '部门',
+        left: 'center',
+      },
+      tooltip: {
+        trigger: 'axis',
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: deptList,
+        },
+      ],
+      yAxis: [
+        {
+          type: 'value',
+        },
+      ],
+      series,
+    }
+    option && myChart.setOption(option)
+  }
+
+  // 各区域点击次数、搭建时长
+  const getOriginOps = (data) => {
+    // 所有区域的点击次数
+    const allChain = data.reduce((p, c) => {
+      if (c.zone_chain) {
+        c.zone_chain.split('_').forEach((path) => {
+          p[path] = (p[path] || 0) + 1
+        })
+      }
+      return p
+    }, {})
+    // 所有区域的搭建时长
+    const allTime = data.reduce((p, c) => {
+      Object.keys(c).forEach((key) => {
+        if (key.endsWith('_time') && Number(c[key])) {
+          p[key] = (p[key] || 0) + Number(c[key])
+        }
+      })
+      return p
+    }, {})
+    let element = document.getElementById('count111')
 
     let myChart = echarts.init(element)
     myChart.clear()
     let option
     option = {
       title: {
-        text: '某站点用户访问来源',
-        subtext: '纯属虚构',
+        text: 'Referer of a Website',
+        subtext: 'Fake Data',
         left: 'center',
       },
       tooltip: {
@@ -69,16 +211,15 @@ const AnalysisPath = () => {
       },
       series: [
         {
-          name: '访问来源',
+          name: '',
           type: 'pie',
           radius: '50%',
-          data: [
-            { value: 1048, name: '搜索引擎' },
-            { value: 735, name: '直接访问' },
-            { value: 580, name: '邮件营销' },
-            { value: 484, name: '联盟广告' },
-            { value: 300, name: '视频广告' },
-          ],
+          data: Object.keys(allChain).map((c) => {
+            return {
+              value: allChain[c],
+              name: originMap[c]?.desc || c,
+            }
+          }),
           emphasis: {
             itemStyle: {
               shadowBlur: 10,
@@ -90,6 +231,18 @@ const AnalysisPath = () => {
       ],
     }
     option && myChart.setOption(option)
+    const sum = Object.keys(allChain).reduce((p, c) => p + allChain[c], 0)
+    const map = Object.keys(allChain).reduce(
+      (p, c) => ({
+        ...p,
+        [c]: {
+          val: allChain[c],
+          percent: allChain[c] / sum,
+        },
+      }),
+      {}
+    )
+    console.log('allChain', map)
   }
 
   const parseExcel = (file) => {
@@ -107,9 +260,11 @@ const AnalysisPath = () => {
     /* 计算路径 */
     /* 用户路径 Echart */
     // 1. 事业部分类
-    getBusinessEchart()
+    getBusinessEchart(old_data)
     // 2. 用户类型分类
-    /* 各区域点击次数、搭建时长Echart */
+    getUsersEchart(old_data)
+    /* 各区域点击次数 */
+    getOriginOps(datas)
   }
 
   const onFinish = (values) => {
@@ -163,21 +318,121 @@ const AnalysisPath = () => {
             </div>
             <div>
               <div className={`${prefixCls}-visual-title`}>事业部明细表</div>
+              <div className={`${prefixCls}-visual-echart`}>
+                <Table
+                  size="small"
+                  columns={[
+                    {
+                      title: '部门',
+                      dataIndex: `dept_name_${formValues.dept}`,
+                      key: `dept_name_${formValues.dept}`,
+                    },
+                    {
+                      title: '操作路径链路',
+                      dataIndex: 'path',
+                      key: 'path',
+                    },
+                    {
+                      title: '操作次数',
+                      dataIndex: 'count',
+                      key: 'count',
+                    },
+                    {
+                      title: '次数占比',
+                      dataIndex: 'count_percent',
+                      key: 'count_percent',
+                    },
+                    {
+                      title: '操作时长',
+                      dataIndex: 'time',
+                      key: 'time',
+                    },
+                    {
+                      title: '时长占比',
+                      dataIndex: 'time_percent',
+                      key: 'time_percent',
+                    },
+                  ]}
+                  dataSource={[
+                    {
+                      key: '1',
+                      path: 'John Brown',
+                      count: 32,
+                      count_percent: 'New York No. 1 Lake Park',
+                      time: ['nice', 'developer'],
+                      time_percent: '50%',
+                      dept_name_1: '部门',
+                      dept_id_1: '11',
+                      dept_name_2: '..',
+                      // ...3， 4级部门
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+            <div>
+              <div className={`${prefixCls}-visual-title`}>用户Echarts</div>
               <div
                 className={`${prefixCls}-visual-echart`}
-                id={`${key}_dept_list`}
-              />
+                id={`${key}_user_histogram`}
+              ></div>
             </div>
             <div>
               <div className={`${prefixCls}-visual-title`}>用户明细表</div>
-              <div
-                className={`${prefixCls}-visual-echart`}
-                id={`${key}_user_list`}
-              />
+              <div className={`${prefixCls}-visual-echart`}>
+                <Table
+                  size="small"
+                  columns={[
+                    {
+                      title: '用户类型',
+                      dataIndex: 'usertype',
+                      key: 'usertype',
+                    },
+                    {
+                      title: '操作路径链路',
+                      dataIndex: 'path',
+                      key: 'path',
+                    },
+                    {
+                      title: '操作次数',
+                      dataIndex: 'count',
+                      key: 'count',
+                    },
+                    {
+                      title: '次数占比',
+                      dataIndex: 'count_percent',
+                      key: 'count_percent',
+                    },
+                    {
+                      title: '操作时长',
+                      dataIndex: 'time',
+                      key: 'time',
+                    },
+                    {
+                      title: '时长占比',
+                      dataIndex: 'time_percent',
+                      key: 'time_percent',
+                    },
+                  ]}
+                  dataSource={[
+                    {
+                      key: '1',
+                      path: 'John Brown',
+                      count: 32,
+                      count_percent: 'New York No. 1 Lake Park',
+                      time: ['nice', 'developer'],
+                      time_percent: '50%',
+                      usertype: '商家',
+                    },
+                  ]}
+                />
+              </div>
             </div>
           </div>
         </div>
       ))}
+      <h1>各区域点击次数</h1>
+      <div id="count111" className={`${prefixCls}-visual-echart`} />
     </div>
   )
 }

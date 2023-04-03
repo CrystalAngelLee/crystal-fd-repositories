@@ -31,9 +31,9 @@ const areas = {
   strokeStyle: 'gray',
 }
 
-const SCATTERS = {
+export const SCATTERS = {
   //   A: {
-  //     desc: "	进入运营区域",
+  //     desc: "进入运营区域",
   //     src: A,
   //     point: [-77.043837, 38.895011],
   //   },

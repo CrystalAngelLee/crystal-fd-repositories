@@ -18,8 +18,9 @@
   height: 600px;
 }
 .analysispath-visual-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
 }
 .analysispath-visual-item > div {
-  flex: 1 1;
+  /* flex: 1 1; */
 }

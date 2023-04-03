@@ -1,5 +1,6 @@
 import { Radio } from 'antd'
-
+// 区域对照表
+export { SCATTERS as originMap } from '../canvas'
 export const prefixCls = 'analysispath'
 export const fileds = [
   {
@@ -30,6 +31,26 @@ export const fileds = [
   },
 ]
 export const initialValues = { dept: '1' }
+export const deptSeriesOps = {
+  type: 'bar',
+  label: {
+    show: true,
+    position: 'insideBottom',
+    distance: 15,
+    align: 'left',
+    verticalAlign: 'middle',
+    rotate: 90,
+    formatter: '{c}  {name|{a}}',
+    fontSize: 16,
+    rich: {
+      name: {},
+    },
+  },
+  emphasis: {
+    focus: 'series',
+  },
+}
+
 export const files = [
   [
     'traceid',
