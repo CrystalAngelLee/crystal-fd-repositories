@@ -43,9 +43,17 @@ const AnalysisPath = () => {
         }
       })
 
-      // 事业部筛选
       if (num === Object.keys(rules).length) {
+        // 事业部筛选
         if (type === 'business' && !!d[`dept_id_${formValues.dept}`]) {
+          res.push(d)
+        }
+        // 商家用户筛选
+        if (type === 'usertype-jdb' && d.erp.startsWith('JD_B')) {
+          res.push(d)
+        }
+        // 运营筛选
+        if (type === 'usertype-jd' && !d.erp.startsWith('JD_B')) {
           res.push(d)
         }
       }
@@ -257,6 +265,10 @@ const AnalysisPath = () => {
     // 3. 复制类型数据
     let copy_data = filterData(datas, { new_old: 1, copy_type: 1 })
     copy_data = filterData(datas, { copy_type: 0 })
+    // 4. 计算商家分类数据
+    let jdb_data = filterData(datas, {}, 'usertype-jdb')
+    // 5. 计算运营数据
+    let jd_data = filterData(datas, {}, 'usertype-jd')
     /* 计算路径 */
     /* 用户路径 Echart */
     // 1. 事业部分类
