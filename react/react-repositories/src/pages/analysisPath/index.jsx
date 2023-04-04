@@ -62,7 +62,22 @@ const AnalysisPath = () => {
           : p,
       []
     )
-
+  // 路线去重
+    const removeSamePath=(data)=>{
+      data = data.map(item =>{
+        // 筛选核心区域
+        let points = item['zone_chain'] && item['zone_chain'].split('_').filter((p) => {
+          return !['A', 'K', 'J', 'I', 'N'].includes(p)
+        })
+        // 去重
+        let newPoints = new Set(points)
+        // 排序
+        item['zone_chain'] = [...newPoints].sort((a, b) => a.localeCompare(b)).join('-')
+        return item
+      })
+      return data
+    }
+  
   // 获取EChart堆叠图展示数据
   const getDeptSeries = (data) => {
     return [
@@ -245,10 +260,84 @@ const AnalysisPath = () => {
     console.log('allChain', map)
   }
 
+  // 把数字专为百分比
+  const parsePercent=(data)=>{
+    if(Number.isNaN(data)) return 0
+    return (Number(data) * 100).toFixed(2) + '%' 
+  }
+  // 获取事业部表格数据
+  const getBusinessTable=(data)=>{
+    // 表格数据
+    let dataSource = []
+    // 操作次数（总）
+    let totalNum = 0
+    // 操作时间（总）
+    let totalTime = 0
+    // 根据当前部门级别聚合数据
+    let dataMap = new Map()
+    data.forEach((item,index)=>{
+      // 有效时间
+      const effectiveTime = Number(item.total_time) - Number(item.k_time)
+      totalTime += effectiveTime
+      totalNum ++
+      const mustObj = {
+        key: index,
+        path:item.zone_chain, // 路径
+        dept_name_1: item.dept_name_1, // 一级部门名
+        dept_name_2: item.dept_name_2, // 二级部门名
+        dept_name_3: item.dept_name_3, // 三级部门名
+        dept_name_4: item.dept_name_4, // 四级部门名
+      }
+      if(!dataMap.has(item[`dept_name_${formValues.dept}`])){
+        // 部门下的路径映射map
+        const pathMap = new Map()
+        pathMap.set(item.zone_chain,{
+          count: 1, // 总操作数
+          time: effectiveTime, // 总时间
+          ...mustObj
+        })
+        dataMap.set(item[`dept_name_${formValues.dept}`],pathMap)
+      }else{
+        // 上一次的部门维度数据
+        let lastDeptValue = dataMap.get(item[`dept_name_${formValues.dept}`])
+        if(!lastDeptValue.get(item.zone_chain)){
+          lastDeptValue.set(item.zone_chain,{
+            count: 1, // 总操作数
+            time: effectiveTime, // 总时间
+            ...mustObj
+          })
+        }else{
+          // 上一次的路径维度数据
+          const lastPathValue = lastDeptValue.get(item.zone_chain)
+          lastDeptValue.set(item.zone_chain,{
+            count: lastPathValue.get('count') + 1, // 总操作数
+            time: lastPathValue.get('time') + effectiveTime, // 总时间
+            ...mustObj
+          })
+        }
+        dataMap.set(item[`dept_name_${formValues.dept}`],lastDeptValue)
+    }
+    })
+    
+    // 给每个数据加上次数和时间的占比
+    dataMap.forEach((pathMapItem)=>{
+      pathMapItem = pathMapItem.forEach((value,key)=>{
+        value.count_percent = parsePercent(value.count / totalNum)
+        value.time_percent = parsePercent(value.time / totalTime)
+        // 右侧table数据
+        dataSource.push(value)
+      })
+    })
+    console.log(dataMap,'事业部表格数据',dataSource)
+    return dataSource
+  }
+
   const parseExcel = (file) => {
     /* 解析文件内容 */
     // 1. 将数据转换为json格式
-    const datas = getParseData(file)
+    let datas = getParseData(file)
+    // 路径去重&留存核心路径
+    datas = removeSamePath(datas)
     /* 筛选数据 */
     // 1. 新页面类型数据
     let new_data = filterData(datas, { new_old: 1, copy_type: -1 })
@@ -257,10 +346,14 @@ const AnalysisPath = () => {
     // 3. 复制类型数据
     let copy_data = filterData(datas, { new_old: 1, copy_type: 1 })
     copy_data = filterData(datas, { copy_type: 0 })
+    console.log('old_data',old_data);
+    
     /* 计算路径 */
     /* 用户路径 Echart */
     // 1. 事业部分类
     getBusinessEchart(old_data)
+    // 获取事业部表格数据
+    getBusinessTable(old_data)
     // 2. 用户类型分类
     getUsersEchart(old_data)
     /* 各区域点击次数 */
