@@ -40,7 +40,7 @@ export const deptSeriesOps = {
     align: 'left',
     verticalAlign: 'middle',
     rotate: 90,
-    formatter: '{c}  {name|{a}}',
+    formatter: '{c}',
     fontSize: 16,
     rich: {
       name: {},
