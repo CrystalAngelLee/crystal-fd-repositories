@@ -14,11 +14,19 @@ import './index.css'
 const AnalysisPath = () => {
   const [formValues, setformValues] = useState(initialValues)
   // 事业部表格数据
-  const [deptTableData, setDeptTableData] = useState([])
+  const [newDeptTableData, setNewDeptTableData] = useState([])
+  const [oldDeptTableData, setOldDeptTableData] = useState([])
+  const [copyDeptTableData, setCopyDeptTableData] = useState([])
+
+  // 用户表格数据
+  const [newUserTableData, setNewUserTableData] = useState([])
+  const [oldUserTableData, setOldUserTableData] = useState([])
+  const [copyUserTableData, setCopyUserTableData] = useState([])
+
   const [files, setFiles] = useState([])
   // 筛选使用排名前十的部门
   const [limitDept, setLimitDept] = useState(10)
-  // 筛选部门内排名前3的操作
+  // 筛选部门内排名前5的操作
   const [limitPath, setLimitPath] = useState(5)
   useEffect(() => {
     parseExcel(files)
@@ -118,7 +126,6 @@ const AnalysisPath = () => {
   const getDeptSeries = (dataSource, deptList) => {
     const pathMap = getPathDeptMap(dataSource)
     let seriesArray = []
-    let i = 1
     for (let [key, value] of pathMap) {
       let data = []
       Object.entries(value).forEach(([key, value]) => {
@@ -127,29 +134,27 @@ const AnalysisPath = () => {
         data[index] = value
       })
       seriesArray.push({
-        name: `${i}:${key}`,
+        name: key,
         data,
         stack: 'total',
         ...deptSeriesOps,
       })
-      i++
     }
     return seriesArray
   }
 
-  const getBusinessEchart = (data, dataSource) => {
+  const getBusinessEchart = (dataSource, type = 'new') => {
     // 1. 事业部柱状图
-    let element = document.getElementById('new_dept_histogram')
+    let element = document.getElementById(`${type}_dept_histogram`)
 
     let myChart = echarts.init(element)
     myChart.clear()
     const deptList = getDeptList(dataSource)
     const series = getDeptSeries(dataSource, deptList)
-    console.log('series', deptList, series)
     let option
     option = {
       title: {
-        text: '新页面路径分析',
+        // text: '新页面路径分析',
         subtext: '部门',
         top: '-20%',
         // left: 'center',
@@ -157,7 +162,10 @@ const AnalysisPath = () => {
       tooltip: {
         trigger: 'axis',
       },
-      legend: {},
+      legend: {
+        // orient: 'vertical',
+        // left: 'left',
+      },
       xAxis: [
         {
           type: 'category',
@@ -176,50 +184,77 @@ const AnalysisPath = () => {
 
   // 获取路径
   const getUsersPath = (data) => {
-    return ['c-d']
+    let map = new Map()
+    data.forEach((item) => {
+      if (!map.has(item.path)) {
+        map.set(item.path, {
+          [item.type]: item.count,
+        })
+      } else {
+        map.set(
+          item.path,
+          Object.assign(map.get(item.path), {
+            [item.type]: item.count,
+          })
+        )
+      }
+    })
+    map.forEach((value, key) => {
+      // 删除独有路线 保留共有
+      if (Object.values(value).length < 2) {
+        map.delete(key)
+      }
+    })
+    return map
   }
 
   // 获取用户展示柱状图数据
-  const getUsersSeries = (data) => {
-    return [
-      {
-        name: '商家', // 路径名称
-        data: [320, 302, 301, 334, 390, 330, 320], // length=部门数 内容=每个部门下对应的路径使用总数
-        ...deptSeriesOps,
-      },
-      {
-        name: '运营',
-        data: [20], // length=部门数 内容=每个部门下对应的路径使用总数
-        ...deptSeriesOps,
-      },
-    ]
+  const getUsersSeries = (pathMap) => {
+    let arraySeries = []
+    let jdbObj = {
+      name: '商家',
+      data: [],
+      ...deptSeriesOps,
+    }
+    let jdObj = {
+      name: '运营',
+      data: [],
+      ...deptSeriesOps,
+    }
+    pathMap.forEach((value) => {
+      jdbObj.data.push(value['商家'])
+      jdObj.data.push(value['运营'])
+    })
+    arraySeries.push(jdbObj, jdObj)
+    return arraySeries
   }
 
-  const getUsersEchart = (data) => {
-    let element = document.getElementById('new_user_histogram')
+  const getUsersEchart = (data, type = 'new') => {
+    let element = document.getElementById(`${type}_user_histogram`)
 
     let myChart = echarts.init(element)
     myChart.clear()
-    const deptList = getUsersPath(data)
-    const series = getUsersSeries(data)
+    const pathMap = getUsersPath(data) //  path:{商家：100，运营：90}
+    const series = getUsersSeries(pathMap)
     let option
     option = {
       title: {
-        text: '新页面路径分析',
+        // text: '新页面路径分析',
         subtext: '部门',
-        left: 'center',
+        // top:'-2%'
+        // left: 'center',
       },
       tooltip: {
         trigger: 'axis',
       },
       legend: {
-        orient: 'vertical',
-        left: 'left',
+        // orient: 'vertical',
+        // left: 'left',
       },
       xAxis: [
         {
           type: 'category',
-          data: deptList,
+          data: [...pathMap.keys()],
         },
       ],
       yAxis: [
@@ -291,7 +326,7 @@ const AnalysisPath = () => {
         },
       ],
     }
-    option && myChart.setOption(option)
+    // option && myChart.setOption(option)
     const sum = Object.keys(allChain).reduce((p, c) => p + allChain[c], 0)
     const map = Object.keys(allChain).reduce(
       (p, c) => ({
@@ -327,16 +362,18 @@ const AnalysisPath = () => {
   }
 
   // 限制展示的数量Map数据结构
-  const limitNumber = (map) => {
+  const limitNumber = (map, limit) => {
     map.forEach((deptValue, key) => {
       // 限制每个部门下前3路径
-      const limitDept = new Map(Array.from(deptValue).slice(0, limitPath))
+      const limitDept = new Map(
+        Array.from(deptValue).slice(0, limit || limitPath)
+      )
       map.set(key, limitDept)
     })
     return new Map(Array.from(map).slice(0, limitDept))
   }
   // 按照部门总使用量进行排序，并根据部门内情况继续排序
-  const filterDataSource = (dataMap) => {
+  const filterDataSource = (dataMap, limit) => {
     // 排序
     dataMap.forEach((deptValue, key) => {
       // 部门级别的使用数
@@ -352,11 +389,79 @@ const AnalysisPath = () => {
     })
     // 部门和部门使用数量倒序
     const sortDeptMap = sortByValue(dataMap)
-    return limitNumber(sortDeptMap)
+    return limitNumber(sortDeptMap, limit)
+  }
+  // 获取用户维度数据 jdbData商家数据,jdData运营数据
+  const getUserTable = (data) => {
+    // 表格数据
+    let dataSource = []
+    // 操作次数（总）
+    let totalNum = 0
+    // 操作时间（总）
+    let totalTime = 0
+    // 根据当前部门级别聚合数据
+    let dataMap = new Map()
+    data.forEach((item, index) => {
+      const type = item.erp.startsWith('JD_B') ? '商家' : '运营'
+      if (!item.zone_chain || item.zone_chain.length < 2) return
+      // 有效时间
+      const effectiveTime = Number(item.total_time) - Number(item.k_time)
+      totalTime += effectiveTime
+      totalNum++
+      const mustObj = {
+        key: index,
+        path: item.zone_chain, // 路径
+        type,
+      }
+      if (!dataMap.has(type)) {
+        // 部门下的路径映射map
+        const pathMap = new Map()
+        pathMap.set(item.zone_chain, {
+          count: 1, // 总操作数
+          time: effectiveTime, // 总时间
+          ...mustObj,
+        })
+        dataMap.set(type, pathMap)
+      } else {
+        // 上一次的用户维度数据
+        let lastDeptValue = dataMap.get(type)
+        if (!lastDeptValue.get(item.zone_chain)) {
+          lastDeptValue.set(item.zone_chain, {
+            count: 1, // 总操作数
+            time: effectiveTime, // 总时间
+            ...mustObj,
+          })
+        } else {
+          // 上一次的路径维度数据
+          const lastPathValue = lastDeptValue.get(item.zone_chain)
+          lastDeptValue.set(item.zone_chain, {
+            count: lastPathValue.count + 1, // 总操作数
+            time: lastPathValue.time + effectiveTime, // 总时间
+            ...mustObj,
+          })
+        }
+        dataMap.set(type, lastDeptValue)
+      }
+    })
+    // 商家和运营分别限制10条
+    const newDataSource = filterDataSource(dataMap, 10)
+    // 给每个数据加上次数和时间的占比
+    newDataSource.forEach((pathMapItem) => {
+      pathMapItem = pathMapItem.forEach((value, key) => {
+        if (key == 'count') return
+        value.count_percent = parsePercent(value.count / totalNum)
+        value.time_percent = parsePercent(value.time / totalTime)
+        // 右侧table数据
+        dataSource.push(value)
+      })
+    })
+    // console.log(newDataSource, '用户表格数据', dataSource)
+    // 需要对数据进行排序
+    return dataSource
   }
 
   // 获取事业部表格数据,limit 每个部分限制条数
-  const getBusinessTable = (data, limit) => {
+  const getBusinessTable = (data) => {
     // 表格数据
     let dataSource = []
     // 操作次数（总）
@@ -420,7 +525,7 @@ const AnalysisPath = () => {
         dataSource.push(value)
       })
     })
-    console.log(newDataSource, '事业部表格数据', dataSource)
+    // console.log(newDataSource,'事业部表格数据',dataSource)
     // 需要对数据进行排序
     return dataSource
   }
@@ -429,8 +534,6 @@ const AnalysisPath = () => {
     /* 解析文件内容 */
     // 1. 将数据转换为json格式
     let datas = getParseData(file)
-    /* 各区域点击次数 */
-    getOriginOps(datas)
     // 路径去重&留存核心路径
     datas = removeSamePath(datas)
     /* 筛选数据 */
@@ -442,24 +545,72 @@ const AnalysisPath = () => {
     let copy_data = filterData(datas, { new_old: 1, copy_type: 1 })
     copy_data = filterData(datas, { copy_type: 0 })
     // 4. 计算商家分类数据
-    let jdb_data = filterData(datas, {}, 'usertype-jdb')
+    let new_jdb_data = filterData(datas, {}, 'usertype-jdb')
+    let old_jdb_data = filterData(datas, { new_old: 2 }, 'usertype-jdb')
+    let copy_jdb_data = filterData(
+      datas,
+      { new_old: 1, copy_type: 1 },
+      'usertype-jdb'
+    )
+    copy_jdb_data = filterData(datas, { copy_type: 0 }, 'usertype-jdb')
+
     // 5. 计算运营数据
-    let jd_data = filterData(datas, {}, 'usertype-jd')
+    let new_jd_data = filterData(datas, {}, 'usertype-jd')
+    let old_jd_data = filterData(datas, { new_old: 2 }, 'usertype-jd')
+    let copy_jd_data = filterData(
+      datas,
+      { new_old: 1, copy_type: 1 },
+      'usertype-jd'
+    )
+    copy_jd_data = filterData(datas, { copy_type: 0 }, 'usertype-jd')
+    // 用户数据
+    const new_user_data = new_jdb_data.concat(new_jd_data)
+    const old_user_data = old_jdb_data.concat(old_jd_data)
+    const copy_user_data = copy_jdb_data.concat(copy_jd_data)
     /* 计算路径 */
     /* 用户路径 Echart */
     // 获取事业部表格数据
-    const deptTableDataSource = getBusinessTable(old_data)
-    setDeptTableData(deptTableDataSource)
+    const newDeptTableDataSource = getBusinessTable(new_data)
+    setNewDeptTableData(newDeptTableDataSource)
+    const oldDeptTableDataSource = getBusinessTable(old_data)
+    setOldDeptTableData(oldDeptTableDataSource)
+    const copyDeptTableDataSource = getBusinessTable(copy_data)
+    setCopyDeptTableData(copyDeptTableDataSource)
+
     // 1. 事业部分类
-    getBusinessEchart(old_data, deptTableDataSource)
+    getBusinessEchart(newDeptTableDataSource, 'new')
+    getBusinessEchart(oldDeptTableDataSource, 'old')
+    getBusinessEchart(copyDeptTableDataSource, 'copy')
+
+    // 用户表数据
+    const newUserTableDataSource = getUserTable(new_user_data)
+    const oldUserTableDataSource = getUserTable(old_user_data)
+    const copyUserTableDataSource = getUserTable(copy_user_data)
+    setNewUserTableData(newUserTableDataSource)
+    setOldUserTableData(oldUserTableDataSource)
+    setCopyUserTableData(copyUserTableDataSource)
+
     // 2. 用户类型分类
-    getUsersEchart(old_data)
+    getUsersEchart(newUserTableDataSource, 'new')
+    getUsersEchart(oldUserTableDataSource, 'old')
+    getUsersEchart(copyUserTableDataSource, 'copy')
+    /* 各区域点击次数 */
+    getOriginOps(datas)
   }
 
   const onFinish = (values) => {
     setformValues(values)
   }
-
+  const deptDataSourceMap = {
+    new: newDeptTableData,
+    old: oldDeptTableData,
+    copy: copyDeptTableData,
+  }
+  const userDataSourceMap = {
+    new: newUserTableData,
+    old: oldUserTableData,
+    copy: copyUserTableData,
+  }
   return (
     <div className={prefixCls}>
       <h1>用户路径分析</h1>
@@ -492,7 +643,7 @@ const AnalysisPath = () => {
       </div>
       {[
         { header: '新页面路径分析', key: 'new' },
-        { header: '复制页面路径分析', key: 'copynew' },
+        { header: '复制页面路径分析', key: 'copy' },
         { header: '老页面路径分析', key: 'old' },
       ].map(({ header, key }) => (
         <div key={key} className={`${prefixCls}-visual`}>
@@ -542,21 +693,8 @@ const AnalysisPath = () => {
                       key: 'time_percent',
                     },
                   ]}
-                  dataSource={deptTableData}
-                  // dataSource={[
-                  //   {
-                  //     key: '1',
-                  //     path: 'John Brown',
-                  //     count: 32,
-                  //     count_percent: 'New York No. 1 Lake Park',
-                  //     time: ['nice', 'developer'],
-                  //     time_percent: '50%',
-                  //     dept_name_1: '部门',
-                  //     dept_id_1: '11',
-                  //     dept_name_2: '..',
-                  //     // ...3， 4级部门
-                  //   },
-                  // ]}
+                  dataSource={deptDataSourceMap[key]}
+                  // pagination={{ pageSize: 100 }}
                 />
               </div>
             </div>
@@ -575,8 +713,8 @@ const AnalysisPath = () => {
                   columns={[
                     {
                       title: '用户类型',
-                      dataIndex: 'usertype',
-                      key: 'usertype',
+                      dataIndex: 'type',
+                      key: 'type',
                     },
                     {
                       title: '操作路径链路',
@@ -604,24 +742,15 @@ const AnalysisPath = () => {
                       key: 'time_percent',
                     },
                   ]}
-                  dataSource={[
-                    {
-                      key: '1',
-                      path: 'John Brown',
-                      count: 32,
-                      count_percent: 'New York No. 1 Lake Park',
-                      time: ['nice', 'developer'],
-                      time_percent: '50%',
-                      usertype: '商家',
-                    },
-                  ]}
+                  dataSource={userDataSourceMap[key]}
+                  // pagination={{ pageSize: 100 }}
                 />
               </div>
             </div>
           </div>
         </div>
       ))}
-      <h1>各区域点击次数</h1>
+      {/* <h1>各区域点击次数</h1> */}
       <div id="count111" className={`${prefixCls}-visual-echart`} />
     </div>
   )
