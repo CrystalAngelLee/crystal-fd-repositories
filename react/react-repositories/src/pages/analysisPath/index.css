@@ -1,4 +1,5 @@
-.analysispath h1 {
+.analysispath h1,
+.analysispath h3 {
   text-align: center;
 }
 .analysispath-steps {

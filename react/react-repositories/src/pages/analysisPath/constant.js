@@ -36,12 +36,19 @@ export const deptSeriesOps = {
   label: {
     show: true,
     position: 'insideBottom',
-    distance: 15,
+    // distance: 15,
     align: 'left',
     verticalAlign: 'middle',
     rotate: 90,
     formatter: '{c}',
-    fontSize: 16,
+    // formatter: '{c}  {name|{a}}',
+    // formatter: (params) => {
+    //   console.log('params', params, params.data)
+    //   return params.value
+    // },
+    fontSize: 12,
+    // overflow: 'breakAll',
+    // width: '10px',
     rich: {
       name: {},
     },
