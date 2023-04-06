@@ -1,7 +1,7 @@
 import { Radio } from 'antd'
-// 区域对照表
-export { SCATTERS as originMap } from '../canvas'
+
 export const prefixCls = 'analysispath'
+
 export const fileds = [
   {
     label: '事业部',
@@ -30,7 +30,9 @@ export const fileds = [
     ),
   },
 ]
+
 export const initialValues = { dept: '1' }
+
 export const deptSeriesOps = {
   type: 'bar',
   label: {
@@ -56,6 +58,84 @@ export const deptSeriesOps = {
   emphasis: {
     focus: 'series',
   },
+}
+
+// 区域对照表
+export const originMap = {
+  //   A: {
+  //     desc: "进入运营区域",
+  //     src: A,
+  //     point: [-77.043837, 38.895011],
+  //   },
+  B: {
+    desc: '模板选择区域',
+    // src: B,
+    point: [-77.0446, 38.894906],
+    textpoint: [-77.0446, 38.894859],
+  },
+  C: {
+    desc: '可视化预览区域',
+    // src: C,
+    point: [-77.04440975, 38.895],
+    textpoint: [-77.04440975, 38.895054],
+  },
+  D: {
+    desc: '配置面板（样式）',
+    // src: D,
+    point: [-77.044212997, 38.895],
+    textpoint: [-77.044212997, 38.8948959],
+  },
+  E: {
+    desc: '导航区域',
+    // src: E,
+    point: [-77.043699, 38.895],
+  },
+  F: {
+    desc: '全局操作',
+    // src: F,
+    point: [-77.044212997, 38.895229],
+  },
+  G: {
+    desc: '千人千面',
+    // src: G,
+    point: [-77.043749, 38.895],
+  },
+  H: {
+    desc: '模板库',
+    // src: H,
+    point: [-77.044579, 38.895229],
+  },
+  //   I: {
+  //     desc: "iFrame",
+  //     src: I,
+  //     point: [-77.044579, 38.895229],
+  //   },
+  //   J: {
+  //     desc: "空闲",
+  //     src: J,
+  //     point: [-77.044579, 38.895229],
+  //   },
+  // K: {
+  //   desc: '跳出', // (刷新，页面失去焦点，最小化窗口，切换其他浏览器tab，电脑睡眠，关闭网页，页面跳转)
+  //   src: K,
+  //   point: [-77.043979, 38.895229],
+  // },
+  L: {
+    desc: '发布、预览',
+    // src: L,
+    point: [-77.043837, 38.895229],
+  },
+  M: {
+    desc: '配置面板（素材）',
+    // src: M,
+    point: [-77.044052997, 38.895],
+    textpoint: [-77.044052997, 38.895054],
+  },
+  //   N: {
+  //     desc: "弹窗",
+  //     src: N,
+  //     point: [-77.044152997, 38.895],
+  //   },
 }
 
 export const files = [
