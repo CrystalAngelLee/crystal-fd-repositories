@@ -122,6 +122,12 @@ const AnalysisPath = () => {
     return pathMap
   }
 
+  const formatPath = (path) =>
+    path
+      .split('-')
+      .map((k) => originMap[k].desc)
+      .join('-')
+
   // 获取EChart堆叠图展示数据
   const getDeptSeries = (dataSource, deptList) => {
     const pathMap = getPathDeptMap(dataSource)
@@ -134,7 +140,7 @@ const AnalysisPath = () => {
         data[index] = value
       })
       seriesArray.push({
-        name: key,
+        name: formatPath(key),
         data,
         stack: 'total',
         ...deptSeriesOps,
@@ -338,7 +344,7 @@ const AnalysisPath = () => {
       }),
       {}
     )
-    console.log('allChain', map)
+    // console.log('allChain', map)
   }
 
   // 把数字专为百分比
@@ -525,7 +531,7 @@ const AnalysisPath = () => {
         dataSource.push(value)
       })
     })
-    // console.log(newDataSource,'事业部表格数据',dataSource)
+    // console.log(newDataSource, '事业部表格数据', dataSource)
     // 需要对数据进行排序
     return dataSource
   }
@@ -645,111 +651,117 @@ const AnalysisPath = () => {
         { header: '新页面路径分析', key: 'new' },
         { header: '复制页面路径分析', key: 'copy' },
         { header: '老页面路径分析', key: 'old' },
-      ].map(({ header, key }) => (
-        <div key={key} className={`${prefixCls}-visual`}>
-          <h3>{header}</h3>
-          <div className={`${prefixCls}-visual-item`}>
-            <div>
-              <div className={`${prefixCls}-visual-title`}>事业部柱状图</div>
-              <div
-                className={`${prefixCls}-visual-echart`}
-                id={`${key}_dept_histogram`}
-              />
-            </div>
-            <div>
-              <div className={`${prefixCls}-visual-title`}>事业部明细表</div>
-              <div className={`${prefixCls}-visual-echart`}>
-                <Table
-                  size="small"
-                  columns={[
-                    {
-                      title: '部门',
-                      dataIndex: `dept_name_${formValues.dept}`,
-                      key: `dept_name_${formValues.dept}`,
-                    },
-                    {
-                      title: '操作路径链路',
-                      dataIndex: 'path',
-                      key: 'path',
-                    },
-                    {
-                      title: '操作次数',
-                      dataIndex: 'count',
-                      key: 'count',
-                    },
-                    {
-                      title: '次数占比',
-                      dataIndex: 'count_percent',
-                      key: 'count_percent',
-                    },
-                    {
-                      title: '操作时长',
-                      dataIndex: 'time',
-                      key: 'time',
-                    },
-                    {
-                      title: '时长占比',
-                      dataIndex: 'time_percent',
-                      key: 'time_percent',
-                    },
-                  ]}
-                  dataSource={deptDataSourceMap[key]}
-                  // pagination={{ pageSize: 100 }}
+      ].map(({ header, key }) => {
+        const _dataSource = deptDataSourceMap[key].map((d) => ({
+          ...d,
+          path: formatPath(d.path),
+        }))
+        const _userdataSource = userDataSourceMap[key].map((d) => ({
+          ...d,
+          path: formatPath(d.path),
+        }))
+        return (
+          <div key={key} className={`${prefixCls}-visual`}>
+            <h3>{header}</h3>
+            <div className={`${prefixCls}-visual-item`}>
+              <div>
+                <div
+                  className={`${prefixCls}-visual-echart`}
+                  id={`${key}_dept_histogram`}
                 />
               </div>
-            </div>
-            <div>
-              <div className={`${prefixCls}-visual-title`}>用户Echarts</div>
-              <div
-                className={`${prefixCls}-visual-echart`}
-                id={`${key}_user_histogram`}
-              ></div>
-            </div>
-            <div>
-              <div className={`${prefixCls}-visual-title`}>用户明细表</div>
-              <div className={`${prefixCls}-visual-echart`}>
-                <Table
-                  size="small"
-                  columns={[
-                    {
-                      title: '用户类型',
-                      dataIndex: 'type',
-                      key: 'type',
-                    },
-                    {
-                      title: '操作路径链路',
-                      dataIndex: 'path',
-                      key: 'path',
-                    },
-                    {
-                      title: '操作次数',
-                      dataIndex: 'count',
-                      key: 'count',
-                    },
-                    {
-                      title: '次数占比',
-                      dataIndex: 'count_percent',
-                      key: 'count_percent',
-                    },
-                    {
-                      title: '操作时长',
-                      dataIndex: 'time',
-                      key: 'time',
-                    },
-                    {
-                      title: '时长占比',
-                      dataIndex: 'time_percent',
-                      key: 'time_percent',
-                    },
-                  ]}
-                  dataSource={userDataSourceMap[key]}
-                  // pagination={{ pageSize: 100 }}
-                />
+              <div>
+                <div className={`${prefixCls}-visual-echart`}>
+                  <Table
+                    size="small"
+                    columns={[
+                      {
+                        title: '部门',
+                        dataIndex: `dept_name_${formValues.dept}`,
+                        key: `dept_name_${formValues.dept}`,
+                      },
+                      {
+                        title: '操作路径链路',
+                        dataIndex: 'path',
+                        key: 'path',
+                      },
+                      {
+                        title: '操作次数',
+                        dataIndex: 'count',
+                        key: 'count',
+                      },
+                      {
+                        title: '次数占比',
+                        dataIndex: 'count_percent',
+                        key: 'count_percent',
+                      },
+                      {
+                        title: '操作时长',
+                        dataIndex: 'time',
+                        key: 'time',
+                      },
+                      {
+                        title: '时长占比',
+                        dataIndex: 'time_percent',
+                        key: 'time_percent',
+                      },
+                    ]}
+                    dataSource={_dataSource}
+                    // pagination={{ pageSize: 100 }}
+                  />
+                </div>
+              </div>
+              <div>
+                <div
+                  className={`${prefixCls}-visual-echart`}
+                  id={`${key}_user_histogram`}
+                ></div>
+              </div>
+              <div>
+                <div className={`${prefixCls}-visual-echart`}>
+                  <Table
+                    size="small"
+                    columns={[
+                      {
+                        title: '用户类型',
+                        dataIndex: 'type',
+                        key: 'type',
+                      },
+                      {
+                        title: '操作路径链路',
+                        dataIndex: 'path',
+                        key: 'path',
+                      },
+                      {
+                        title: '操作次数',
+                        dataIndex: 'count',
+                        key: 'count',
+                      },
+                      {
+                        title: '次数占比',
+                        dataIndex: 'count_percent',
+                        key: 'count_percent',
+                      },
+                      {
+                        title: '操作时长',
+                        dataIndex: 'time',
+                        key: 'time',
+                      },
+                      {
+                        title: '时长占比',
+                        dataIndex: 'time_percent',
+                        key: 'time_percent',
+                      },
+                    ]}
+                    dataSource={_userdataSource}
+                    // pagination={{ pageSize: 100 }}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
       {/* <h1>各区域点击次数</h1> */}
       <div id="count111" className={`${prefixCls}-visual-echart`} />
     </div>

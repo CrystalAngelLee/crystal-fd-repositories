@@ -68,13 +68,13 @@ export const originMap = {
   //     point: [-77.043837, 38.895011],
   //   },
   B: {
-    desc: '模板选择区域',
+    desc: '模板选择',
     // src: B,
     point: [-77.0446, 38.894906],
     textpoint: [-77.0446, 38.894859],
   },
   C: {
-    desc: '可视化预览区域',
+    desc: '可视化预览',
     // src: C,
     point: [-77.04440975, 38.895],
     textpoint: [-77.04440975, 38.895054],
@@ -86,7 +86,7 @@ export const originMap = {
     textpoint: [-77.044212997, 38.8948959],
   },
   E: {
-    desc: '导航区域',
+    desc: '导航',
     // src: E,
     point: [-77.043699, 38.895],
   },
