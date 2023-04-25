@@ -1,51 +1,51 @@
 import React from 'react'
-import { Breadcrumb, Layout, Menu, theme } from 'antd'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { Layout, Menu } from 'antd'
+import { SideBar } from './config'
+import './index.scss'
 
 const { Header, Content, Sider } = Layout
+const prefixCls = 'react-main'
 
 const Main = () => {
+  const navigate = useNavigate()
+  const onMenuClick = ({ key }) => {
+    navigate(key)
+  }
   return (
-    <Layout>
-      <Header className="header">
-        <h1>Crystal の React Demo Part</h1>
+    <Layout className={prefixCls}>
+      <Header className={`${prefixCls}-header`}>
+        <h1>Crystal の React Demo</h1>
       </Header>
       <Layout>
         <Sider width={200}>
           <Menu
             mode="inline"
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
+            theme="dark"
             style={{
               height: '100%',
               borderRight: 0,
             }}
-            items={[]}
+            items={SideBar}
+            onClick={onMenuClick}
           />
         </Sider>
-      </Layout>
-      <Layout
-        style={{
-          padding: '0 24px 24px',
-        }}
-      >
-        <Breadcrumb
+        <Layout
           style={{
-            margin: '16px 0',
+            padding: '0 24px 24px',
           }}
         >
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
-        <Content
-          style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 280,
-          }}
-        >
-          Content
-        </Content>
+          <Content
+            style={{
+              padding: 24,
+              margin: 0,
+              minHeight: 280,
+              overflow: 'auto',
+            }}
+          >
+            <Outlet />
+          </Content>
+        </Layout>
       </Layout>
     </Layout>
   )

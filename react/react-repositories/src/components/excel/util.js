@@ -53,7 +53,6 @@ export const parseExcel = (file) => {
     const rABS =
       typeof FileReader !== 'undefined' &&
       (FileReader.prototype || {}).readAsBinaryString
-    let isCSV
     if (rABS) {
       reader.readAsBinaryString(file)
     } else {

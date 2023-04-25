@@ -9,7 +9,7 @@ import {
   deptSeriesOps,
   originMap,
 } from './constant'
-import './index.css'
+import './index.scss'
 
 const AnalysisPath = () => {
   const [formValues, setformValues] = useState(initialValues)
@@ -25,9 +25,9 @@ const AnalysisPath = () => {
 
   const [files, setFiles] = useState([])
   // 筛选使用排名前十的部门
-  const [limitDept, setLimitDept] = useState(10)
+  const [limitDept] = useState(10)
   // 筛选部门内排名前5的操作
-  const [limitPath, setLimitPath] = useState(5)
+  const [limitPath] = useState(5)
   useEffect(() => {
     parseExcel(files)
   }, [formValues, files])
