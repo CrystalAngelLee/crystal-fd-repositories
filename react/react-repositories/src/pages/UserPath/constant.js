@@ -44,10 +44,6 @@ export const deptSeriesOps = {
     rotate: 90,
     formatter: '{c}',
     // formatter: '{c}  {name|{a}}',
-    // formatter: (params) => {
-    //   console.log('params', params, params.data)
-    //   return params.value
-    // },
     fontSize: 12,
     // overflow: 'breakAll',
     // width: '10px',
@@ -137,6 +133,78 @@ export const originMap = {
   //     point: [-77.044152997, 38.895],
   //   },
 }
+
+export const commonAnalysis = [
+  // { header: '新页面路径分析', key: 'new' },
+  { header: '复制页面路径分析', key: 'copy' },
+  { header: '老页面路径分析', key: 'old' },
+]
+
+export const deptColumn = (dept) => [
+  {
+    title: '部门',
+    dataIndex: `dept_name_${dept}`,
+    key: `dept_name_${dept}`,
+  },
+  {
+    title: '操作路径链路',
+    dataIndex: 'path',
+    key: 'path',
+  },
+  {
+    title: '操作次数',
+    dataIndex: 'count',
+    key: 'count',
+  },
+  {
+    title: '次数占比',
+    dataIndex: 'count_percent',
+    key: 'count_percent',
+  },
+  {
+    title: '操作时长',
+    dataIndex: 'time',
+    key: 'time',
+  },
+  {
+    title: '时长占比',
+    dataIndex: 'time_percent',
+    key: 'time_percent',
+  },
+]
+
+export const usersColumn = [
+  {
+    title: '用户类型',
+    dataIndex: 'type',
+    key: 'type',
+  },
+  {
+    title: '操作路径链路',
+    dataIndex: 'path',
+    key: 'path',
+  },
+  {
+    title: '操作次数',
+    dataIndex: 'count',
+    key: 'count',
+  },
+  {
+    title: '次数占比',
+    dataIndex: 'count_percent',
+    key: 'count_percent',
+  },
+  {
+    title: '操作时长',
+    dataIndex: 'time',
+    key: 'time',
+  },
+  {
+    title: '时长占比',
+    dataIndex: 'time_percent',
+    key: 'time_percent',
+  },
+]
 
 export const files = [
   [

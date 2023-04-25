@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import * as echarts from 'echarts'
-import { Button, Form, Table } from 'antd'
+import { Button, Form, Table, Collapse } from 'antd'
 import { Excel } from '../../components'
 import {
   prefixCls,
@@ -8,8 +8,13 @@ import {
   fileds,
   deptSeriesOps,
   originMap,
+  commonAnalysis,
+  deptColumn,
+  usersColumn,
 } from './constant'
 import './index.scss'
+
+const { Panel } = Collapse
 
 const AnalysisPath = () => {
   const [formValues, setformValues] = useState(initialValues)
@@ -273,80 +278,6 @@ const AnalysisPath = () => {
     option && myChart.setOption(option)
   }
 
-  // 各区域点击次数、搭建时长
-  const getOriginOps = (data) => {
-    // 所有区域的点击次数
-    const allChain = data.reduce((p, c) => {
-      if (c.zone_chain) {
-        c.zone_chain.split('_').forEach((path) => {
-          p[path] = (p[path] || 0) + 1
-        })
-      }
-      return p
-    }, {})
-    // 所有区域的搭建时长
-    const allTime = data.reduce((p, c) => {
-      Object.keys(c).forEach((key) => {
-        if (key.endsWith('_time') && Number(c[key])) {
-          p[key] = (p[key] || 0) + Number(c[key])
-        }
-      })
-      return p
-    }, {})
-    let element = document.getElementById('count111')
-
-    let myChart = echarts.init(element)
-    myChart.clear()
-    let option
-    option = {
-      title: {
-        text: 'Referer of a Website',
-        subtext: 'Fake Data',
-        left: 'center',
-      },
-      tooltip: {
-        trigger: 'item',
-      },
-      legend: {
-        orient: 'vertical',
-        left: 'left',
-      },
-      series: [
-        {
-          name: '',
-          type: 'pie',
-          radius: '50%',
-          data: Object.keys(allChain).map((c) => {
-            return {
-              value: allChain[c],
-              name: originMap[c]?.desc || c,
-            }
-          }),
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)',
-            },
-          },
-        },
-      ],
-    }
-    // option && myChart.setOption(option)
-    const sum = Object.keys(allChain).reduce((p, c) => p + allChain[c], 0)
-    const map = Object.keys(allChain).reduce(
-      (p, c) => ({
-        ...p,
-        [c]: {
-          val: allChain[c],
-          percent: allChain[c] / sum,
-        },
-      }),
-      {}
-    )
-    // console.log('allChain', map)
-  }
-
   // 把数字专为百分比
   const parsePercent = (data) => {
     if (Number.isNaN(data)) return 0
@@ -536,7 +467,8 @@ const AnalysisPath = () => {
     return dataSource
   }
 
-  const parseExcel = (file) => {
+  const parseExcel = (file = []) => {
+    if (!file.length) return
     /* 解析文件内容 */
     // 1. 将数据转换为json格式
     let datas = getParseData(file)
@@ -600,13 +532,17 @@ const AnalysisPath = () => {
     getUsersEchart(newUserTableDataSource, 'new')
     getUsersEchart(oldUserTableDataSource, 'old')
     getUsersEchart(copyUserTableDataSource, 'copy')
-    /* 各区域点击次数 */
-    getOriginOps(datas)
   }
 
   const onFinish = (values) => {
     setformValues(values)
   }
+
+  // 新建用户数据处理
+  const parseNewPath = (files = []) => {
+    console.log('files', files)
+  }
+
   const deptDataSourceMap = {
     new: newDeptTableData,
     old: oldDeptTableData,
@@ -618,40 +554,40 @@ const AnalysisPath = () => {
     copy: copyUserTableData,
   }
   return (
-    <div className={prefixCls}>
-      <h1>用户路径分析</h1>
-      <div className={`${prefixCls}-steps`}>
-        <div>
-          <h3>Step 1 上传文件</h3>
-          <Excel type="upload" parseExcel={(files) => setFiles(files)} />
-        </div>
-        <div>
-          <h3>Step 2 搜索类型定义</h3>
+    <Collapse className={prefixCls}>
+      <Panel header="Working" key="steps">
+        <div className={`${prefixCls}-steps`}>
           <div>
-            <Form
-              name="basic"
-              initialValues={initialValues}
-              onFinish={onFinish}
-            >
-              {fileds.map(({ name, child, label }) => (
-                <Form.Item key={name} label={label} name={name}>
-                  {child}
+            <h3>Step 1 上传文件</h3>
+            新建用户数据：
+            <Excel type="upload" parseExcel={(files) => parseNewPath(files)} />
+            上传用户路径数据：
+            <Excel type="upload" parseExcel={(files) => setFiles(files)} />
+          </div>
+          <div>
+            <h3>Step 2 搜索类型定义</h3>
+            <div>
+              <Form
+                name="basic"
+                initialValues={initialValues}
+                onFinish={onFinish}
+              >
+                {fileds.map(({ name, child, label }) => (
+                  <Form.Item key={name} label={label} name={name}>
+                    {child}
+                  </Form.Item>
+                ))}
+                <Form.Item>
+                  <Button type="primary" htmlType="submit">
+                    Search
+                  </Button>
                 </Form.Item>
-              ))}
-              <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Search
-                </Button>
-              </Form.Item>
-            </Form>
+              </Form>
+            </div>
           </div>
         </div>
-      </div>
-      {[
-        { header: '新页面路径分析', key: 'new' },
-        { header: '复制页面路径分析', key: 'copy' },
-        { header: '老页面路径分析', key: 'old' },
-      ].map(({ header, key }) => {
+      </Panel>
+      {commonAnalysis.map(({ header, key }) => {
         const _dataSource = deptDataSourceMap[key].map((d) => ({
           ...d,
           path: formatPath(d.path),
@@ -661,8 +597,7 @@ const AnalysisPath = () => {
           path: formatPath(d.path),
         }))
         return (
-          <div key={key} className={`${prefixCls}-visual`}>
-            <h3>{header}</h3>
+          <Panel key={key} header={header} className={`${prefixCls}-visual`}>
             <div className={`${prefixCls}-visual-item`}>
               <div>
                 <div
@@ -674,40 +609,8 @@ const AnalysisPath = () => {
                 <div className={`${prefixCls}-visual-echart`}>
                   <Table
                     size="small"
-                    columns={[
-                      {
-                        title: '部门',
-                        dataIndex: `dept_name_${formValues.dept}`,
-                        key: `dept_name_${formValues.dept}`,
-                      },
-                      {
-                        title: '操作路径链路',
-                        dataIndex: 'path',
-                        key: 'path',
-                      },
-                      {
-                        title: '操作次数',
-                        dataIndex: 'count',
-                        key: 'count',
-                      },
-                      {
-                        title: '次数占比',
-                        dataIndex: 'count_percent',
-                        key: 'count_percent',
-                      },
-                      {
-                        title: '操作时长',
-                        dataIndex: 'time',
-                        key: 'time',
-                      },
-                      {
-                        title: '时长占比',
-                        dataIndex: 'time_percent',
-                        key: 'time_percent',
-                      },
-                    ]}
+                    columns={deptColumn(formValues.dept)}
                     dataSource={_dataSource}
-                    // pagination={{ pageSize: 100 }}
                   />
                 </div>
               </div>
@@ -721,50 +624,16 @@ const AnalysisPath = () => {
                 <div className={`${prefixCls}-visual-echart`}>
                   <Table
                     size="small"
-                    columns={[
-                      {
-                        title: '用户类型',
-                        dataIndex: 'type',
-                        key: 'type',
-                      },
-                      {
-                        title: '操作路径链路',
-                        dataIndex: 'path',
-                        key: 'path',
-                      },
-                      {
-                        title: '操作次数',
-                        dataIndex: 'count',
-                        key: 'count',
-                      },
-                      {
-                        title: '次数占比',
-                        dataIndex: 'count_percent',
-                        key: 'count_percent',
-                      },
-                      {
-                        title: '操作时长',
-                        dataIndex: 'time',
-                        key: 'time',
-                      },
-                      {
-                        title: '时长占比',
-                        dataIndex: 'time_percent',
-                        key: 'time_percent',
-                      },
-                    ]}
+                    columns={usersColumn}
                     dataSource={_userdataSource}
-                    // pagination={{ pageSize: 100 }}
                   />
                 </div>
               </div>
             </div>
-          </div>
+          </Panel>
         )
       })}
-      {/* <h1>各区域点击次数</h1> */}
-      <div id="count111" className={`${prefixCls}-visual-echart`} />
-    </div>
+    </Collapse>
   )
 }
 
