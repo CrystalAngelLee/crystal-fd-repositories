@@ -13,9 +13,13 @@
 
 ## micro
 
-tips：微前端实现案例
+> 微前端实现案例
 
-- systemjs
-- single-spa
-- micro-app
-- module-federation
+### micro-app
+
+> 文章指南：[microApp](https://github.com/CrystalAngelLee/crystal-fd-notes/blob/master/%E5%BE%AE%E5%89%8D%E7%AB%AF/microApp.md)
+
+1. MicroApp 使用 Demo
+   1. 主应用集合路径：`micro/micro-app/childApps`
+   2. 子应用集合路径：`micro/micro-app/childApps`
+2. MicroApp-Mini 实践：`micro/micro-app/mini-micro-app`
