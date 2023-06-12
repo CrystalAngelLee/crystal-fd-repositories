@@ -3,6 +3,9 @@ import router from './router'
 import App from './App.vue'
 import MicroApp from 'mini-micro-app'
 
+// 测试全局属性-沙箱验证
+window.globalStr = 'parent'
+
 MicroApp.start()
 
 Vue.config.productionTip = false

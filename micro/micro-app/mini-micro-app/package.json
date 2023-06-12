@@ -11,8 +11,10 @@
     "build:watch": "cross-env NODE_ENV='development' rollup -c -w",
     "install:main-vue2": "cd demos/vue2 && yarn",
     "install:child-react18": "cd demos/childrens/react18 && yarn",
+    "install:child-react17": "cd demos/childrens/react17 && yarn",
     "main-vue2": "cd demos/vue2 && yarn start",
-    "start-child:react18": "cd demos/childrens/react18 && yarn start"
+    "start-child:react18": "cd demos/childrens/react18 && yarn start",
+    "start-child:react17": "cd demos/childrens/react17 && yarn start"
   },
   "keywords": [
     "micro-app"
