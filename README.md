@@ -23,3 +23,7 @@
    1. 主应用集合路径：`micro/micro-app/childApps`
    2. 子应用集合路径：`micro/micro-app/childApps`
 2. MicroApp-Mini 实践：`micro/micro-app/mini-micro-app`
+
+## scaffold
+
+> 脚手架 Demo 实现
