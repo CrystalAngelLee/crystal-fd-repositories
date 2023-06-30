@@ -5,8 +5,9 @@
     <router-link to="/">Go to Home</router-link>
     <router-link to="/about">Go to About</router-link>
     <div class="text-color">我是基座应用的文字</div>
-    <micro-app name="app" url="http://localhost:10000/"></micro-app>
-    <!-- <micro-app name="app1" url="http://localhost:10001/"></micro-app> -->
+    <!-- <micro-app name="app" url="http://localhost:10000/"></micro-app> -->
+    <div>React17</div>
+    <micro-app name="react17" url="http://localhost:10001/"></micro-app>
   </div>
 </template>
 
@@ -16,8 +17,8 @@ import HelloWorld from '../components/HelloWorld.vue'
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
-  },
+    HelloWorld
+  }
 }
 </script>
 

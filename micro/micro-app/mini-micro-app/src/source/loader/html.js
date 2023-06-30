@@ -1,9 +1,13 @@
 import { fetchSource } from '../fetch'
 import scopedCSS from '../scoped_css'
+import microApp from '../../'
+import { isPlainObject, isFunction } from '../../libs/utils'
+import { getAssetsPlugins } from '../scripts'
 
 export default function loadHtml(app) {
   fetchSource(app.url)
     .then((html) => {
+      html = processHtml(app.url, html, app.name)
       html = html
         .replace(/<head[^>]*>[\s\S]*?<\/head>/i, (match) => {
           // 将head标签替换为micro-app-head，因为web页面只允许有一个head标签
@@ -48,6 +52,24 @@ export default function loadHtml(app) {
     })
 }
 
+function processHtml(url, code, appName) {
+  // 插件处理
+  const plugins = microApp.plugins
+  if (!plugins) return code
+
+  const mergedPlugins = getAssetsPlugins(appName)
+
+  if (mergedPlugins.length > 0) {
+    return mergedPlugins.reduce((preCode, plugin) => {
+      if (isPlainObject(plugin) && isFunction(plugin.processHtml)) {
+        return plugin.processHtml(preCode, url)
+      }
+      return preCode
+    }, code)
+  }
+  return code
+}
+
 /**
  * 递归处理每一个子元素
  * @param parent 父元素
@@ -69,7 +91,7 @@ function extractSourceDom(parent, app) {
       if (dom.getAttribute('rel') === 'stylesheet' && href) {
         // 计入source缓存中
         app.source.links.set(href, {
-          code: '', // 代码内容
+          code: '' // 代码内容
         })
       }
       // 删除原有元素
@@ -84,14 +106,14 @@ function extractSourceDom(parent, app) {
         // 远程script
         app.source.scripts.set(src, {
           code: '', // 代码内容
-          isExternal: true, // 是否远程script
+          isExternal: true // 是否远程script
         })
       } else if (dom.textContent) {
         // 内联script
         const nonceStr = Math.random().toString(36).substr(2, 15)
         app.source.scripts.set(nonceStr, {
           code: dom.textContent, // 代码内容
-          isExternal: false, // 是否远程script
+          isExternal: false // 是否远程script
         })
       }
       parent.removeChild(dom)

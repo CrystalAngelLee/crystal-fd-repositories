@@ -1,9 +1,14 @@
 import { defineElement } from './micro_app_element'
+import { isPlainObject } from './libs/utils'
 
 const MicroApp = {
-  start() {
+  start(options) {
+    if (isPlainObject(options)) {
+      isPlainObject(options.plugins) && (this.plugins = options.plugins)
+    }
+
     defineElement()
-  },
+  }
 }
 
 export default MicroApp
