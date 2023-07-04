@@ -1,5 +1,6 @@
 import loadHtml from './source/loader/html'
 import SandBox from './sandbox'
+import dispatchLifecyclesEvent from './interact/lifecycles_event'
 
 // 微应用实例缓存
 export const appInstanceMap = new Map()
@@ -12,7 +13,7 @@ export default class CreateApp {
   // 存放应用的静态资源
   source = {
     links: new Map(), // link元素对应的静态资源
-    scripts: new Map(), // script元素对应的静态资源
+    scripts: new Map() // script元素对应的静态资源
   }
 
   constructor({ name, url, container }) {
@@ -43,6 +44,7 @@ export default class CreateApp {
 
   // 资源加载完成后进行渲染
   mount() {
+    dispatchLifecyclesEvent(this.container, this.name, 'beforemount')
     // 克隆DOM节点
     const cloneHtml = this.source.html.cloneNode(true)
     // 创建一个fragment节点作为模版，这样不会产生冗余的元素
@@ -60,6 +62,7 @@ export default class CreateApp {
     this.source.scripts.forEach((info) => {
       ;(0, eval)(this.sandbox.bindScope(info.code))
     })
+    dispatchLifecyclesEvent(this.container, this.name, 'mounted')
 
     // 标记应用为已渲染
     this.state = 'mounted'
@@ -73,6 +76,7 @@ export default class CreateApp {
   unmount(destory) {
     // 更新状态
     this.status = 'unmount'
+    dispatchLifecyclesEvent(this.container, this.name, 'unmount')
     // 清空容器
     this.container = null
     this.sandbox.stop()

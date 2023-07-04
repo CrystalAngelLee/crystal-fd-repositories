@@ -7,7 +7,15 @@
     <div class="text-color">我是基座应用的文字</div>
     <!-- <micro-app name="app" url="http://localhost:10000/"></micro-app> -->
     <div>React17</div>
-    <micro-app name="react17" url="http://localhost:10001/"></micro-app>
+    <micro-app
+      name="react17"
+      url="http://localhost:10001/"
+      @created="created"
+      @beforemount="beforemount"
+      @mounted="mounted"
+      @unmount="unmount"
+      @error="error"
+    ></micro-app>
   </div>
 </template>
 
@@ -18,6 +26,23 @@ export default {
   name: 'Home',
   components: {
     HelloWorld
+  },
+  methods: {
+    created() {
+      console.log('micro-app元素被创建')
+    },
+    beforemount() {
+      console.log('即将被渲染')
+    },
+    mounted() {
+      console.log('已经渲染完成')
+    },
+    unmount() {
+      console.log('已经卸载')
+    },
+    error() {
+      console.log('渲染出错')
+    }
   }
 }
 </script>

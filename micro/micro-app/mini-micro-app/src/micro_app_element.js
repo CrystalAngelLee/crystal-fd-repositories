@@ -1,4 +1,5 @@
 import CreateApp, { appInstanceMap } from './create_app'
+import dispatchLifecyclesEvent from './interact/lifecycles_event'
 
 class MicroAppElement extends HTMLElement {
   // 声明需要监听的属性名，只有这些属性变化时才会触发attributeChangedCallback
@@ -14,15 +15,21 @@ class MicroAppElement extends HTMLElement {
   connectedCallback() {
     // 元素被插入到DOM时执行，此时去加载子应用的静态资源并渲染
     console.log('micro-app is connected')
-    // 创建微应用实例
-    const app = new CreateApp({
-      name: this.name,
-      url: this.url,
-      container: this,
-    })
+    dispatchLifecyclesEvent(this, this.name, 'created')
+    // 预加载情况：查看缓存中是否有实例
+    if (appInstanceMap.has(this.name)) {
+      const oldApp = appInstanceMap.get(this.name)
+    } else {
+      // 创建微应用实例
+      const app = new CreateApp({
+        name: this.name,
+        url: this.url,
+        container: this
+      })
 
-    // 记入缓存，用于后续功能
-    appInstanceMap.set(this.name, app)
+      // 记入缓存，用于后续功能
+      appInstanceMap.set(this.name, app)
+    }
   }
 
   disconnectedCallback() {
