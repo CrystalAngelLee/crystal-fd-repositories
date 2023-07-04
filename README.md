@@ -17,7 +17,7 @@
 
 ### micro-app
 
-> 文章指南：[microApp](https://github.com/CrystalAngelLee/crystal-fd-notes/blob/master/%E5%BE%AE%E5%89%8D%E7%AB%AF/microApp.md)
+> 文章指南：[microApp](https://crystalangellee.github.io/zh-cn/microApp/microApp)
 
 1. MicroApp 使用 Demo
    1. 主应用集合路径：`micro/micro-app/childApps`
