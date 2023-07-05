@@ -7,14 +7,19 @@ const headers = {
     {
       name: '会场',
       key: '会场分期',
-      text: '灵活楼层',
-    },
-  ],
+      text: '灵活楼层'
+    }
+  ]
 }
 
 class ExportExcel extends React.Component {
   parseExcel = (dataSource) => {
-    console.log(dataSource)
+    dataSource.shift()
+    const res = []
+    dataSource.forEach((d) => {
+      // TODO
+    })
+    console.log(res.join(';'))
   }
 
   render() {
