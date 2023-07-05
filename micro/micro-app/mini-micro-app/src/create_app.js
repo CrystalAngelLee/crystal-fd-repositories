@@ -85,4 +85,8 @@ export default class CreateApp {
       appInstanceMap.delete(this.name)
     }
   }
+
+  onerror() {
+    dispatchLifecyclesEvent(this.container, this.name, 'error')
+  }
 }
