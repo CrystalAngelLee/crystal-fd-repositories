@@ -1,0 +1,25 @@
+{
+  "name": "micro-app",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "bootstrap": "yarn && npm-run-all --serial install:*",
+    "start": "npm-run-all --parallel start:main-react17",
+    "start:main-react17": "npm-run-all --parallel start-child:* main-react17",
+    "start:main-react18": "npm-run-all --parallel start-child:* main-react18",
+    "install:main-react17": "cd mainApp/react17 && yarn",
+    "install:main-react18": "cd mainApp/react18 && yarn",
+    "install:child-react18": "cd childApps/react18 && yarn",
+    "main-react17": "cd mainApp/react17 && yarn start",
+    "main-react18": "cd mainApp/react18 && yarn start",
+    "start-child:react18": "cd childApps/react18 && yarn start"
+  },
+  "keywords": [
+    "micro-app-demos"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
