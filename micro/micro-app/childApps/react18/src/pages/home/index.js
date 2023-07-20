@@ -7,25 +7,29 @@ function App() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  useEffect(() => {
-    // 接收基座传递的数据
-    function dataListener(data) {
-      if (data.path) {
-        navigate(data.path)
-      }
-    }
-    if (window.__MICRO_APP_ENVIRONMENT__) {
-      window.microApp.addDataListener(dataListener)
-    }
-    return () => {
-      if (window.__MICRO_APP_ENVIRONMENT__) {
-        // 解绑监听函数
-        window.microApp.removeDataListener(dataListener)
-        // 清空当前子应用的所有绑定函数(全局数据函数除外)
-        window.microApp.clearDataListener()
-      }
-    }
-  }, [])
+  /**
+   * 采用兼容问题 https://github.com/micro-zoe/micro-app/issues/849
+   * 此处可不使用子应用内部路由处理
+   */
+  // useEffect(() => {
+  //   // 接收基座传递的数据
+  //   function dataListener(data) {
+  //     if (data.path) {
+  //       navigate(data.path)
+  //     }
+  //   }
+  //   if (window.__MICRO_APP_ENVIRONMENT__) {
+  //     window.microApp.addDataListener(dataListener)
+  //   }
+  //   return () => {
+  //     if (window.__MICRO_APP_ENVIRONMENT__) {
+  //       // 解绑监听函数
+  //       window.microApp.removeDataListener(dataListener)
+  //       // 清空当前子应用的所有绑定函数(全局数据函数除外)
+  //       window.microApp.clearDataListener()
+  //     }
+  //   }
+  // }, [])
 
   useEffect(() => {
     if (window.microApp) {
