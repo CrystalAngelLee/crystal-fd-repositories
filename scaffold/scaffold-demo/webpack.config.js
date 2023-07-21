@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   mode: 'development',
-  entry: './transESModule/index.js',
+  entry: './webpackESM/index.js',
   output: {
     filename: 'core.js',
     path: path.join(__dirname, '/dist'),
