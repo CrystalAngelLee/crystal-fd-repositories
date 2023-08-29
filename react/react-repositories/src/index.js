@@ -1,11 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
-import router from './router'
+import { LOCATION } from './utils'
+import pcrouter from './router'
+import mbrouter from './router/index.m'
 import reportWebVitals from './reportWebVitals'
 import './styles/index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
+
+const router = LOCATION.isMobile() ? mbrouter : pcrouter
+
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
