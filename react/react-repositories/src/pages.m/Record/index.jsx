@@ -1,12 +1,14 @@
 import React, { useCallback, useState } from 'react'
 import dayjs from 'dayjs'
-import { Form, TextArea, DatePicker, Selector, Button } from 'antd-mobile'
+import { Form, TextArea, DatePicker, Selector, Button, Modal } from 'antd-mobile'
 import { useMemo } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 const prefixCls = 'muzi-record'
 
 
 function Record() {
+  const navigate = useNavigate()
   const [form] = Form.useForm()
   const [showForm, setShowForm] = useState(false)
   const [remarklist, setRemarklist] = useState({})
@@ -23,7 +25,6 @@ function Record() {
   }
 
   const onFinish = (values) => {
-    console.log(111, values)
     const params = {}
     Object.keys(values).filter(v => !!values[v]).forEach(v => {
       params[v] = values[v]
@@ -33,7 +34,13 @@ function Record() {
       params.date = _date.format('YYYY-MM-DD')
       params.week = _date.day() // 周日为 0
     }
-    console.log(222, params)
+    Modal.alert({
+      content: '保存成功，返回列表',
+      onConfirm: () => {
+        navigate('/')
+      },
+    })
+
   }
 
   const formData = [
@@ -70,9 +77,9 @@ function Record() {
       needRemark: true,
       fieldProps: {
         options: [
-          { value: '50', label: '开心' }, 
-          { value: '30', label: '平淡' }, 
-          { value: '-5', label: 'sad' }, 
+          { value: '50', label: '开心' },
+          { value: '30', label: '平淡' },
+          { value: '-5', label: 'sad' },
           { value: '-20', label: '生气' }
         ]
       }
@@ -86,8 +93,8 @@ function Record() {
         multiple: true,
         options: [
           { value: '20', label: '葡萄干(补气血)' },
-          { value: '30', label: '姜枣茶' }, 
-          { value: '30_0', label: '喝糊糊' }, 
+          { value: '30', label: '姜枣茶' },
+          { value: '30_0', label: '喝糊糊' },
         ]
       }
     },
@@ -100,11 +107,11 @@ function Record() {
         multiple: true,
         options: [
           { value: '30', label: '艾灸' },
-          { value: '20', label: '敲八虚' }, 
-          { value: '20_0', label: '还阳卧' }, 
-          { value: '15', label: '海盐热敷' }, 
-          { value: '30_0', label: '仙人揉腹' }, 
-          { value: '20_1', label: '日常揉腹' }, 
+          { value: '20', label: '敲八虚' },
+          { value: '20_0', label: '还阳卧' },
+          { value: '15', label: '海盐热敷' },
+          { value: '30_0', label: '仙人揉腹' },
+          { value: '20_1', label: '日常揉腹' },
         ]
       }
     },
@@ -117,8 +124,8 @@ function Record() {
         multiple: true,
         options: [
           { value: '30_0', label: '体态运动' },
-          { value: '50', label: '健身' }, 
-          { value: '30_1', label: '走路' }, 
+          { value: '50', label: '健身' },
+          { value: '30_1', label: '走路' },
           { value: '30_2', label: '八段锦' },
           { value: '30_3', label: '打羽毛球' },
         ]
@@ -133,7 +140,7 @@ function Record() {
         multiple: true,
         options: [
           { value: '30', label: '艾草泡脚' },
-          { value: '20', label: '清水泡脚' }, 
+          { value: '20', label: '清水泡脚' },
         ]
       }
     },
@@ -146,10 +153,10 @@ function Record() {
         multiple: true,
         options: [
           { value: '-10', label: '信必可' },
-          { value: '-8', label: '孟鲁司特' }, 
-          { value: '3', label: '保健用药' }, 
-          { value: '0', label: '日常用药' }, 
-          { value: '8', label: '清洗鼻腔' }, 
+          { value: '-8', label: '孟鲁司特' },
+          { value: '3', label: '保健用药' },
+          { value: '0', label: '日常用药' },
+          { value: '8', label: '清洗鼻腔' },
         ]
       }
     },
@@ -162,9 +169,9 @@ function Record() {
         multiple: true,
         options: [
           { value: '20', label: '肝经疏通' },
-          { value: '20_0', label: '胆经疏通' }, 
-          { value: '20_1', label: '头部按摩' }, 
-          { value: '20_2', label: '眼部按摩' }, 
+          { value: '20_0', label: '胆经疏通' },
+          { value: '20_1', label: '头部按摩' },
+          { value: '20_2', label: '眼部按摩' },
         ]
       }
     },
@@ -176,10 +183,10 @@ function Record() {
       fieldProps: {
         options: [
           { value: '50', label: '11点前' },
-          { value: '30', label: '11:30前' }, 
-          { value: '-10', label: '12:00前' }, 
-          { value: '-30', label: '12:00后' }, 
-          { value: '-100', label: '12:30后' }, 
+          { value: '30', label: '11:30前' },
+          { value: '-10', label: '12:00前' },
+          { value: '-30', label: '12:00后' },
+          { value: '-100', label: '12:30后' },
         ]
       }
     },
@@ -192,7 +199,7 @@ function Record() {
         multiple: true,
         options: [
           { value: '15_0', label: '架构学习' },
-          { value: '15_1', label: '阅读' }, 
+          { value: '15_1', label: '阅读' },
         ]
       }
     },
@@ -205,7 +212,7 @@ function Record() {
         multiple: true,
         options: [
           { value: '30', label: '美容仪' },
-          { value: '20', label: '面膜' }, 
+          { value: '20', label: '面膜' },
         ]
       }
     },
@@ -287,12 +294,12 @@ function Record() {
 
   return (
     <Form form={form} onFinish={onFinish} layout='horizontal' mode='card' footer={
-        <Button block type='submit' color='primary' size='large'>
-          提交
-        </Button>
-      }>
-        {formData.map(field => renderField(field))}
-      </Form>
+      <Button block type='submit' color='primary' size='large'>
+        提交
+      </Button>
+    }>
+      {formData.map(field => renderField(field))}
+    </Form>
   )
 }
 

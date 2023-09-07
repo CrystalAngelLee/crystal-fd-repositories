@@ -25,7 +25,7 @@ function Home() {
   })
 
   const onShowForm = () => {
-    navigate('/m/record')
+    navigate('record')
     // setShowForm(true)
     // form.setFieldsValue(initalFormData)
   }
@@ -78,9 +78,9 @@ function Home() {
       needRemark: true,
       fieldProps: {
         options: [
-          { value: '50', label: '开心' }, 
-          { value: '30', label: '平淡' }, 
-          { value: '-5', label: 'sad' }, 
+          { value: '50', label: '开心' },
+          { value: '30', label: '平淡' },
+          { value: '-5', label: 'sad' },
           { value: '-20', label: '生气' }
         ]
       }
@@ -94,8 +94,8 @@ function Home() {
         multiple: true,
         options: [
           { value: '20', label: '葡萄干(补气血)' },
-          { value: '30', label: '姜枣茶' }, 
-          { value: '30_0', label: '喝糊糊' }, 
+          { value: '30', label: '姜枣茶' },
+          { value: '30_0', label: '喝糊糊' },
         ]
       }
     },
@@ -108,11 +108,11 @@ function Home() {
         multiple: true,
         options: [
           { value: '30', label: '艾灸' },
-          { value: '20', label: '敲八虚' }, 
-          { value: '20_0', label: '还阳卧' }, 
-          { value: '15', label: '海盐热敷' }, 
-          { value: '30_0', label: '仙人揉腹' }, 
-          { value: '20_1', label: '日常揉腹' }, 
+          { value: '20', label: '敲八虚' },
+          { value: '20_0', label: '还阳卧' },
+          { value: '15', label: '海盐热敷' },
+          { value: '30_0', label: '仙人揉腹' },
+          { value: '20_1', label: '日常揉腹' },
         ]
       }
     },
@@ -125,8 +125,8 @@ function Home() {
         multiple: true,
         options: [
           { value: '30_0', label: '体态运动' },
-          { value: '50', label: '健身' }, 
-          { value: '30_1', label: '走路' }, 
+          { value: '50', label: '健身' },
+          { value: '30_1', label: '走路' },
           { value: '30_2', label: '八段锦' },
           { value: '30_3', label: '打羽毛球' },
         ]
@@ -141,7 +141,7 @@ function Home() {
         multiple: true,
         options: [
           { value: '30', label: '艾草泡脚' },
-          { value: '20', label: '清水泡脚' }, 
+          { value: '20', label: '清水泡脚' },
         ]
       }
     },
@@ -154,10 +154,10 @@ function Home() {
         multiple: true,
         options: [
           { value: '-10', label: '信必可' },
-          { value: '-8', label: '孟鲁司特' }, 
-          { value: '3', label: '保健用药' }, 
-          { value: '0', label: '日常用药' }, 
-          { value: '8', label: '清洗鼻腔' }, 
+          { value: '-8', label: '孟鲁司特' },
+          { value: '3', label: '保健用药' },
+          { value: '0', label: '日常用药' },
+          { value: '8', label: '清洗鼻腔' },
         ]
       }
     },
@@ -170,9 +170,9 @@ function Home() {
         multiple: true,
         options: [
           { value: '20', label: '肝经疏通' },
-          { value: '20_0', label: '胆经疏通' }, 
-          { value: '20_1', label: '头部按摩' }, 
-          { value: '20_2', label: '眼部按摩' }, 
+          { value: '20_0', label: '胆经疏通' },
+          { value: '20_1', label: '头部按摩' },
+          { value: '20_2', label: '眼部按摩' },
         ]
       }
     },
@@ -184,10 +184,10 @@ function Home() {
       fieldProps: {
         options: [
           { value: '50', label: '11点前' },
-          { value: '30', label: '11:30前' }, 
-          { value: '-10', label: '12:00前' }, 
-          { value: '-30', label: '12:00后' }, 
-          { value: '-100', label: '12:30后' }, 
+          { value: '30', label: '11:30前' },
+          { value: '-10', label: '12:00前' },
+          { value: '-30', label: '12:00后' },
+          { value: '-100', label: '12:30后' },
         ]
       }
     },
@@ -200,7 +200,7 @@ function Home() {
         multiple: true,
         options: [
           { value: '15_0', label: '架构学习' },
-          { value: '15_1', label: '阅读' }, 
+          { value: '15_1', label: '阅读' },
         ]
       }
     },
@@ -213,7 +213,7 @@ function Home() {
         multiple: true,
         options: [
           { value: '30', label: '美容仪' },
-          { value: '20', label: '面膜' }, 
+          { value: '20', label: '面膜' },
         ]
       }
     },
