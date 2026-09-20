@@ -1,0 +1,9 @@
+{
+  "name": "chat-completions-practice",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "chat": "node --env-file=.env chat-once.mjs",
+    "chat:json": "node --env-file=.env chat-json.mjs"
+  }
+}

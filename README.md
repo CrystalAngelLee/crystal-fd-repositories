@@ -1,5 +1,11 @@
 # crystal-fd-repositories
 
+## AI
+
+### chat-completions-practice
+
+1. Chat Completions 第一枪练手（Groq / OpenRouter / Ollama 等免费或免费额度方案）
+
 ## React
 
 ### react-repositories
