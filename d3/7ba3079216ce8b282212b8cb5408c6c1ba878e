@@ -1,0 +1,67 @@
+ai/chat-completions-practice/knowledge/deploy.md
+  s_bf270f6f8bf428::t_3c88e9752fabcc 1-9
+ai/chat-completions-practice/.gitignore
+  s_bf270f6f8bf428::t_e3badceceea8c2 1
+ai/chat-completions-practice/package.json
+  s_bf270f6f8bf428::t_ad373599985c9c 13
+  s_bf270f6f8bf428::t_3963ef0acab631 10
+  s_bf270f6f8bf428::t_7f143bacc4a9db 14
+  s_bf270f6f8bf428::t_17053504487138 11
+  s_bf270f6f8bf428::t_0069a8a2d505bd 12
+ai/chat-completions-practice/chat-agent.mjs
+  s_bf270f6f8bf428::t_f7cca3c4cbdfdd 1-229
+ai/chat-completions-practice/lib/chunk.mjs
+  s_bf270f6f8bf428::t_bdf88dcc1f6b77 1,3-12,15-16,20-25,40-43,55,58,62,64-65,69-70,73-76
+  s_bf270f6f8bf428::t_f79d11d9a3c8c4 2,13-14,17-19,26-39,44-54,56-57,59-61,63,66-68,71-72
+ai/chat-completions-practice/lib/embed.mjs
+  s_bf270f6f8bf428::t_1c8c069646ae3c 1-15,17-71
+  s_bf270f6f8bf428::t_df4511325c4d8a 16
+ai/chat-completions-practice/knowledge/glossary.md
+  s_bf270f6f8bf428::t_bff7424ca3b629 1-8
+ai/chat-completions-practice/knowledge/billing-handbook.md
+  s_bf270f6f8bf428::t_7b1e5324f45afc 1-41
+ai/chat-completions-practice/README.md
+  s_bf270f6f8bf428::t_acdd288a151ec1 174-183
+  s_bf270f6f8bf428::t_d3fa51809f2325 125-135
+  s_bf270f6f8bf428::t_e907fbb213b65e 136-150
+  s_bf270f6f8bf428::t_44bb325d7c50a1 163-173
+  s_bf270f6f8bf428::t_9710d28e0bdb6f 151-162
+ai/chat-completions-practice/chat-eval-rag.mjs
+  s_bf270f6f8bf428::t_ca9b5dbd11d2e6 1-103
+ai/chat-completions-practice/knowledge/permissions.md
+  s_bf270f6f8bf428::t_7502165f44e1d4 1-9
+ai/chat-completions-practice/eval/rag-cases.json
+  s_bf270f6f8bf428::t_65a2e0d202d845 1-26
+ai/chat-completions-practice/chat-rag-vector.mjs
+  s_bf270f6f8bf428::t_2dd2764d879e1e 1-93
+ai/chat-completions-practice/chat-rag.mjs
+  s_bf270f6f8bf428::t_4d188236108e63 1-104
+ai/chat-completions-practice/.env.example
+  s_bf270f6f8bf428::t_412d82cfa96cf3 11-12
+  s_bf270f6f8bf428::t_96ae8708533fc9 19
+ai/chat-completions-practice/lib/retrieve.mjs
+  s_bf270f6f8bf428::t_f71c9a7b1b3071 2
+  s_bf270f6f8bf428::t_1bd3f0975ab765 1,3-46
+ai/chat-completions-practice/chat-rag-chunk.mjs
+  s_bf270f6f8bf428::t_997c7428eedbc3 1-105
+ai/chat-completions-practice/lib/retrieve-vector.mjs
+  s_bf270f6f8bf428::t_e51b9d52d87dc5 1-81
+ai/chat-completions-practice/lib/retrieve-chunks.mjs
+  s_bf270f6f8bf428::t_e316aa9e70cebd 1-109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d37ba3079216ce8b282212b8cb5408c6c1ba878e",
+  "prompts": {},
+  "sessions": {
+    "s_bf270f6f8bf428": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "4c6fd4f4-1ccb-4cd6-b56c-99aa3276c866",
+        "model": "default"
+      },
+      "human_author": "liyuan97 <liyuan97@jd.com>"
+    }
+  }
+}
