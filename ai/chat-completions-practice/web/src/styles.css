@@ -1,0 +1,156 @@
+:root {
+  color: #1a1a1a;
+  background: #f6f7f9;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.page {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+}
+
+.tab {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid #c9ced6;
+  border-radius: 6px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.tab.active {
+  border-color: #1f4b99;
+  background: #1f4b99;
+  color: #fff;
+  font-weight: 600;
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+  font-size: 1.75rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0 0 1.75rem;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.form {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.form label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.form input {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #c9ced6;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.form button {
+  margin-top: 0.35rem;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  background: #1f4b99;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form button:disabled,
+.form input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.hint {
+  color: #666;
+}
+
+.error {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 6px;
+  background: #fdeeee;
+  color: #8a1f1f;
+}
+
+.result {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e2e5ea;
+}
+
+.result > div {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+}
+
+.result > div + div {
+  border-top: 1px solid #eef0f3;
+}
+
+.result dt {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.result dd {
+  margin: 0;
+}
+
+.stream-out {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e2e5ea;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.caret {
+  display: inline-block;
+  margin-left: 1px;
+  color: #1f4b99;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

@@ -4,6 +4,10 @@
   "type": "module",
   "scripts": {
     "chat": "node --env-file=.env chat-once.mjs",
-    "chat:json": "node --env-file=.env chat-json.mjs"
+    "chat:json": "node --env-file=.env chat-json.mjs",
+    "chat:fewshot": "node --env-file=.env chat-fewshot.mjs",
+    "chat:tools": "node --env-file=.env chat-tools.mjs",
+    "bff": "node --env-file=.env server.mjs",
+    "web": "npm run dev --prefix web"
   }
 }

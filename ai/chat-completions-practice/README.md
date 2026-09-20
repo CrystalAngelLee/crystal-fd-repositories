@@ -81,4 +81,45 @@ npm run chat:json -- 闭包
 
 成功时会先打印模型原始 `content`，再打印 `parsed` 对象。说明见公开笔记「让模型输出 JSON」。
 
+## 再下一步：system + few-shot
+
+```bash
+npm run chat:fewshot
+npm run chat:fewshot -- 事件循环
+```
+
+在 `messages` 里带两组示例，再要求多一个 `scene` 字段。说明见「Prompt 基础与少样本」。
+
+## 再下一步：页面 + BFF（L2）
+
+密钥只留在 Node BFF；浏览器打 `/api/explain`。
+
+**终端 1 — BFF：**
+
+```bash
+npm run bff
+# http://localhost:3921
+```
+
+**终端 2 — React 页：**
+
+```bash
+cd web && npm install && npm run dev
+# 或在上一级：npm run web（需先装过 web 依赖）
+# http://localhost:5173  （Vite 已把 /api 代理到 3921）
+```
+
+页面输入术语 → loading → 展示 `term` / `oneLiner` / `scene`，或 error。说明见公开笔记「前端产品化：页面 + BFF」。
+
+同一页面还有 **「流式聊天」** Tab：走 `POST /api/chat/stream`（SSE），回答会逐字追加。说明见「流式输出」。改完 `server.mjs` 后需**重启** `npm run bff`。
+
+## 再下一步：Function Calling（L3）
+
+```bash
+npm run chat:tools
+npm run chat:tools -- 现在几点了？另外 19 加 23 等于多少？
+```
+
+会打印第一轮 `tool_calls`、本地工具结果、第二轮最终回答。说明见「Function Calling」。若报不支持 tools，换控制台里标明支持函数调用的模型。
+
 **不要把 `.env`、真实密钥贴到公开地方。**
