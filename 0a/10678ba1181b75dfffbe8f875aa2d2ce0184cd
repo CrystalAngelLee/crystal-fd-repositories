@@ -1,0 +1,35 @@
+ai/chat-completions-practice/package.json
+  s_bf270f6f8bf428::t_aa8c2a35080ca3 6-7
+  s_bf270f6f8bf428::t_660c2824d67d7c 1-5,8-9
+.gitignore
+  s_bf270f6f8bf428::t_52bd87950a2f0f 6-8
+ai/chat-completions-practice/chat-json.mjs
+  s_bf270f6f8bf428::t_415936aa533f6d 1-90
+README.md
+  s_bf270f6f8bf428::t_d8a25a1209d93f 3-8
+ai/chat-completions-practice/.env.example
+  s_bf270f6f8bf428::t_7b7b58eca87828 1-2,8,20,37-39,41-43
+  s_bf270f6f8bf428::t_5cf3920b2298d7 3-7,9-19,21-36,40
+ai/chat-completions-practice/chat-once.mjs
+  s_bf270f6f8bf428::t_2bbb41a897b701 1-64
+ai/chat-completions-practice/README.md
+  s_bf270f6f8bf428::t_7b5b2febfa5f1d 1-6,8,12,20,22,27,29,33-37,39-40,44-45,47-48,50-53,55-57,60-62,64-66,72
+  s_bf270f6f8bf428::t_76c3082ecbe869 7,9-11,13-19,21,23-26,28,30-32,38,41-43,46,49,54,58-59,63,67-71,84
+  s_bf270f6f8bf428::t_cdbeadc732309b 73-83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0a10678ba1181b75dfffbe8f875aa2d2ce0184cd",
+  "prompts": {},
+  "sessions": {
+    "s_bf270f6f8bf428": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "4c6fd4f4-1ccb-4cd6-b56c-99aa3276c866",
+        "model": "default"
+      },
+      "human_author": "liyuan97 <liyuan97@jd.com>"
+    }
+  }
+}
