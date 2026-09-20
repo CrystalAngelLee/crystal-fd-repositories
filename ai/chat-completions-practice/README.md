@@ -122,4 +122,63 @@ npm run chat:tools -- 现在几点了？另外 19 加 23 等于多少？
 
 会打印第一轮 `tool_calls`、本地工具结果、第二轮最终回答。说明见「Function Calling」。若报不支持 tools，换控制台里标明支持函数调用的模型。
 
+## 再下一步：RAG 有/无对比
+
+本地 `knowledge/*.md` 是虚构的 Crystal Notes 设定。同一问题跑两遍：
+
+```bash
+npm run chat:rag
+npm run chat:rag -- Crystal Notes 回收站保留几天？
+```
+
+先看「无 RAG」，再看关键词检索注入后的「有 RAG」。说明见「RAG 基础」。
+
+### 向量检索
+
+在 `.env` 增加（模型名以控制台 Embeddings 列表为准）：
+
+```bash
+LLM_EMBED_MODEL=BAAI/bge-m3
+```
+
+```bash
+npm run chat:rag:vector
+npm run chat:rag:vector -- 笔记被引用多了会有什么内部指标？
+```
+
+会建/读本地 `.cache/knowledge-embeddings.json`，打印 keyword vs vector 命中，再生成回答。
+
+### 切块检索
+
+长文不宜整篇一个向量。对比「整篇」与「chunk」：
+
+```bash
+npm run chat:rag:chunk
+npm run chat:rag:chunk -- 冷静期结束后数据还能恢复吗？
+```
+
+可选环境变量：`RAG_CHUNK_CHARS`（默认 280）、`RAG_CHUNK_OVERLAP`（默认 60）、`RAG_TOP_K`（默认 3）。  
+切块索引用单独缓存 `.cache/knowledge-embeddings-chunks.json`。
+
+## 再下一步：多工具编排
+
+固定两轮升级为「有 tool_calls 就继续」的循环：
+
+```bash
+npm run chat:agent
+npm run chat:agent -- 现在几点？小时加 5；回收站保留几天？
+```
+
+工具：`get_now` / `add` / `lookup_kb`。可选 `AGENT_MAX_ROUNDS`。说明见「多工具编排」。
+
+## RAG 小评测
+
+固定用例，对比 keyword / vector / chunk 是否命中期望文档（不调 Chat）：
+
+```bash
+npm run chat:eval:rag
+```
+
+用例在 `eval/rag-cases.json`，可自行增删。
+
 **不要把 `.env`、真实密钥贴到公开地方。**

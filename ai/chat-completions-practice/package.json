@@ -7,6 +7,11 @@
     "chat:json": "node --env-file=.env chat-json.mjs",
     "chat:fewshot": "node --env-file=.env chat-fewshot.mjs",
     "chat:tools": "node --env-file=.env chat-tools.mjs",
+    "chat:rag": "node --env-file=.env chat-rag.mjs",
+    "chat:rag:vector": "node --env-file=.env chat-rag-vector.mjs",
+    "chat:rag:chunk": "node --env-file=.env chat-rag-chunk.mjs",
+    "chat:agent": "node --env-file=.env chat-agent.mjs",
+    "chat:eval:rag": "node --env-file=.env chat-eval-rag.mjs",
     "bff": "node --env-file=.env server.mjs",
     "web": "npm run dev --prefix web"
   }

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "deploy-domain",
+    "question": "Crystal Notes 生产环境域名是什么？灰度默认先放多少？",
+    "expectSources": ["deploy.md"],
+    "note": "短设定，字面应能命中"
+  },
+  {
+    "id": "glossary-synonym",
+    "question": "笔记被别人引用多了会有什么内部指标？谁能看见？",
+    "expectSources": ["glossary.md"],
+    "note": "同义表述，关键词可能弱、向量应更稳"
+  },
+  {
+    "id": "billing-cancel",
+    "question": "冷静期结束后数据还能恢复吗？注销前团队主管理员要先做什么？",
+    "expectSources": ["billing-handbook.md"],
+    "note": "长文局部细节，切块应优于整篇被冲淡"
+  },
+  {
+    "id": "permissions-recycle",
+    "question": "Crystal Notes 回收站保留几天？",
+    "expectSources": ["permissions.md"],
+    "note": "权限文里的明确数字"
+  }
+]
