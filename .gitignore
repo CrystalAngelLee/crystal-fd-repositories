@@ -12,3 +12,7 @@
 **/*.pyc
 **/.pytest_cache/
 **/*.db
+
+# OS
+.DS_Store
+**/.DS_Store
