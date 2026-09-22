@@ -1,0 +1,30 @@
+services:
+  db:                                   # Postgres 数据库服务
+    image: postgres:16
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: apppass
+      POSTGRES_DB: expense_v2
+    volumes:
+      - pgdata:/var/lib/postgresql/data   # 数据卷:数据落宿主机,删容器不丢
+    healthcheck:                          # 等数据库真正就绪
+      test: ["CMD-SHELL", "pg_isready -U appuser -d expense_v2"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  app:                                  # 我们的 FastAPI 应用
+    build: .
+    environment:
+      # 关键:host 用服务名 db,不是 localhost!
+      DATABASE_URL: postgresql://appuser:apppass@db:5432/expense_v2
+      SECRET_KEY: compose-secret-change-me
+      ACCESS_TOKEN_EXPIRE_MINUTES: "60"
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy       # db 健康后才启动 app
+
+volumes:
+  pgdata:                               # 声明数据卷

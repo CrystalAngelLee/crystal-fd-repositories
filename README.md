@@ -6,6 +6,18 @@
 
 1. Chat Completions 第一枪练手（Groq / OpenRouter / Ollama 等免费或免费额度方案）
 
+## Python
+
+练习与毕业项目在 `python/`：
+
+1. `basics` — 语法与 pytest
+2. `flask-crud` / `fastapi-crud` — Web API 与 ORM / JWT
+3. `alembic-demo` — 数据库迁移
+4. `expense-tracker` — 记账本 API + Docker
+5. `expense-api` — 多用户后端 + Compose（毕业项目）
+
+详见 [python/README.md](./python/README.md)。
+
 ## React
 
 ### react-repositories
