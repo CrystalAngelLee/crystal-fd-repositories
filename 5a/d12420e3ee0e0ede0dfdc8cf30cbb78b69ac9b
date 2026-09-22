@@ -1,0 +1,141 @@
+ai/chat-completions-practice/py/raglib/keyword.py
+  s_12f811fa3f67f3::t_a3b79b7c301bc8 1-46
+.gitignore
+  s_8725767a910af1::t_5df22093d5c487 8-9
+  s_8725767a910af1::t_cfc1b3283ff2ca 10-12
+  s_8725767a910af1::t_a2a69ac1b3366d 13-14
+README.md
+  s_8725767a910af1::t_c3adcbb19ad00e 9-20
+python/README.md
+  s_8725767a910af1::t_527eec8da6e701 1-23
+python/alembic-demo/alembic.ini
+  s_8725767a910af1::t_c969fd922c180b 1-147
+python/alembic-demo/migrations/README
+  s_8725767a910af1::t_435b7eb90aa785 1
+python/alembic-demo/migrations/env.py
+  s_8725767a910af1::t_018cfa1ea18b37 1-79
+python/alembic-demo/migrations/script.py.mako
+  s_8725767a910af1::t_fc93ea0af34eb4 1-28
+python/alembic-demo/migrations/versions/00d2c9bbbb68_add_year_to_books.py
+  s_8725767a910af1::t_8d550d6963a8a7 1-32
+python/alembic-demo/migrations/versions/f7a302458710_create_books_table.py
+  s_8725767a910af1::t_032f34d3fdc38b 1-37
+python/alembic-demo/models.py
+  s_8725767a910af1::t_9db05ace27d165 1-13
+python/basics/fizzbuzz.py
+  s_8725767a910af1::t_4a28fcc3107fb1 1-9
+python/basics/functions.py
+  s_8725767a910af1::t_161cd0cc514860 1-13
+python/basics/hello.py
+  s_8725767a910af1::t_e847b813fb1034 1-3
+python/basics/mathutils.py
+  s_8725767a910af1::t_5a7bfa5b227555 1-20
+python/basics/test_mathutils.py
+  s_8725767a910af1::t_26a6315ebcdad3 1-31
+python/basics/users.py
+  s_8725767a910af1::t_d20573a8c53557 1-24
+python/expense-api/.dockerignore
+  s_8725767a910af1::t_59f9a17ac9f3b1 1-6
+python/expense-api/.env.example
+  s_8725767a910af1::t_fb6a74340e6559 1-3
+python/expense-api/.gitignore
+  s_8725767a910af1::t_688fe8eb970eaa 1-4
+python/expense-api/Dockerfile
+  s_8725767a910af1::t_4b9c004138ef9f 1-13
+python/expense-api/alembic.ini
+  s_8725767a910af1::t_2ee9c31612c664 1-147
+python/expense-api/app/auth.py
+  s_8725767a910af1::t_83605e6bf5426d 1-49
+python/expense-api/app/config.py
+  s_8725767a910af1::t_d8ddb87c408b29 1-8
+python/expense-api/app/database.py
+  s_8725767a910af1::t_fa1bec2683d94b 1-22
+python/expense-api/app/main.py
+  s_8725767a910af1::t_ae0ff4e4c6c9c8 1-90
+python/expense-api/app/models.py
+  s_8725767a910af1::t_8926f2a651050e 1-40
+python/expense-api/app/schemas.py
+  s_8725767a910af1::t_cb731c4992eecf 1-35
+python/expense-api/docker-compose.yml
+  s_8725767a910af1::t_7f084e850637bb 1-30
+python/expense-api/migrations/README
+  s_8725767a910af1::t_0173a0d9702ac2 1
+python/expense-api/migrations/env.py
+  s_8725767a910af1::t_4b0c600c61ff94 1-83
+python/expense-api/migrations/script.py.mako
+  s_8725767a910af1::t_d76e0309741967 1-28
+python/expense-api/migrations/versions/693e9ae45e7b_create_users_and_expenses.py
+  s_8725767a910af1::t_f13bffed3ce3f2 1-51
+python/expense-api/migrations/versions/e46fdd00d07b_add_budget_to_users.py
+  s_8725767a910af1::t_d855ae692386f7 1-34
+python/expense-api/requirements.txt
+  s_8725767a910af1::t_3095094d1cb385 1-10
+python/expense-tracker/.dockerignore
+  s_8725767a910af1::t_5d76e44bb11520 1-4
+python/expense-tracker/Dockerfile
+  s_8725767a910af1::t_054783aa3001fa 1-13
+python/expense-tracker/main.py
+  s_8725767a910af1::t_924b3a74ad2116 1-113
+python/expense-tracker/requirements.txt
+  s_8725767a910af1::t_a42c7decf5bcc8 1-3
+python/fastapi-crud/.env.example
+  s_8725767a910af1::t_4d36f63dc25f12 1-3
+python/fastapi-crud/auth_app.py
+  s_8725767a910af1::t_80de634b7f4b0a 1-125
+python/fastapi-crud/fastapi_app.py
+  s_8725767a910af1::t_fbc2f419422128 1-63
+python/fastapi-crud/fastapi_orm.py
+  s_8725767a910af1::t_b922b1afb391d4 1-84
+python/fastapi-crud/orm_demo.py
+  s_8725767a910af1::t_9fefe7483bae51 1-54
+python/fastapi-crud/orm_practice.py
+  s_8725767a910af1::t_769970d54258ee 1-32
+python/fastapi-crud/pg_test.py
+  s_8725767a910af1::t_1a066a72883b66 1-26
+python/fastapi-crud/test_api.py
+  s_8725767a910af1::t_e845d166729dce 1-35
+python/flask-crud/app.py
+  s_8725767a910af1::t_5cdd788415a96d 1-67
+python/flask-crud/app_db.py
+  s_8725767a910af1::t_6349f7b008af10 1-110
+python/flask-crud/db_test.py
+  s_8725767a910af1::t_ca7da8a94df63c 1-29
+python/flask-crud/myapp/app.py
+  s_8725767a910af1::t_83f22224d6bad2 1-15
+python/flask-crud/myapp/config.py
+  s_8725767a910af1::t_0d2891206be323 1-4
+python/flask-crud/myapp/db.py
+  s_8725767a910af1::t_aed0203e2f49d1 1-23
+python/flask-crud/myapp/routes.py
+  s_8725767a910af1::t_c7e541bd238eee 1-73
+ai/chat-completions-practice/.gitignore
+  s_8725767a910af1::t_460931eb168da1 2-3
+ai/chat-completions-practice/py/rag_eval.py
+  s_8725767a910af1::t_c7cc955463a7db 1-22
+ai/chat-completions-practice/py/requirements.txt
+  s_8725767a910af1::t_9e66c75992ecfd 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5ad12420e3ee0e0ede0dfdc8cf30cbb78b69ac9b",
+  "prompts": {},
+  "sessions": {
+    "s_12f811fa3f67f3": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "233dbb1b-f5f6-47ef-8652-dcc34451febf",
+        "model": "grok-4.6"
+      },
+      "human_author": "liyuan97 <liyuan97@jd.com>"
+    },
+    "s_8725767a910af1": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "ba0fb8ae-0426-4d69-a56c-37cd2e23cb90",
+        "model": "default"
+      },
+      "human_author": "liyuan97 <liyuan97@jd.com>"
+    }
+  }
+}
